@@ -51,7 +51,7 @@ class UserModelTestCase(TestCase):
         user1_query = User.query.filter_by(username="CoolGuy").first()
         self.assertNotEqual(user1_query.password,
             'ilikesunglasses',
-            msg="Password did not hash correctly.")
+            msg="User Password did not hash correctly.")
     
     def test_authenticate(self):
         """User.authenticate method"""

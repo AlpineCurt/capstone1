@@ -1,9 +1,22 @@
-<nav class="navbar navbar-expand">
-    <a class="navbar-brand" href="/">Wild Carrot</a>
-
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto">
-            <a class="nav-link" href="/">Home</a>
+<nav class="navbar navbar-light bg-primary justify-content-between">
+    <div class="container">
+        <a href="/" class="navbar-brand text-light">Wild Carrot</a>
+        <ul class="nav navbar-nav flex-row float-right">
+            {% if not g.user %}
+                <li class="nav-item">
+                    <a class="nav-link pr-3 text-light" href="/signup">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link pr-3 text-light" href="/login">Log in</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link pr-3 text-light">{{g.user.username}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link pr-3 text-light" href="/logout">Logout</a>
+                </li>
+            {% endif %}
         </ul>
     </div>
 </nav>
