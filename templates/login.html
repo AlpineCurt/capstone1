@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}Sign Up{% endblock %}
+{% block title %}Login{% endblock %}
 
 {% block content %}
 <div class="row justify-content-md-center">
     <div class="col-md-7 col-lg-5">
-        <h2>Join Wild Carrot</h2>
+        <h2>Log In</h2>
         <form method="POST">
             {{ form.hidden_tag() }}
             {% for field in form if field.widget.input_type != 'hidden' %}
@@ -14,8 +14,7 @@
                 {% endfor %}
                 {{ field(placeholder=field.label.text, class="form-control") }}
             {% endfor %}
-
-            <button class="btn btn-primary btn-lg btn-block">Sign Up</button>
+            <button class="btn btn-primary btn-lg btn-block">Log In</button>
         </form>
     </div>
 </div>

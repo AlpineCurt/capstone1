@@ -47,6 +47,9 @@ def login():
     If form is valid, logs user in and redirects to homepage.
     Otherwise display login page and errors with login (if any)."""
 
+    if CURR_USER_KEY in session:
+        return redirect("/")
+
     form = LoginForm()
 
     if form.validate_on_submit():
@@ -60,7 +63,7 @@ def login():
         
         flash("Invalid credentials", "danger")
     
-    return render_template('users/login.html', form=form)
+    return render_template('login.html', form=form)
 
 @app.route("/logout")
 def logout():
@@ -76,6 +79,10 @@ def signup():
     Create a new user, add them to DB, redirect to home page.
     If form is not valid, present signup form.
     If username taken, flash message and re-present form."""
+
+    if CURR_USER_KEY in session:
+        flash("Please logout before createing a new account.", "danger")
+        return redirect("/")
 
     form = NewUserForm()
 
