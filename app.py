@@ -1,12 +1,15 @@
 import os
-from secrets_ import flask_secret_key
+from secrets_ import flask_secret_key, edamam_app_id, edamam_app_key
 
 from flask import Flask, render_template, request, flash, redirect, session, get_flashed_messages, g
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
+import requests
 
 from models import db, conenct_db, User, Comment, Recipe
 from forms import NewUserForm, LoginForm
+
+from helper_functions import parse_search_results
 
 CURR_USER_KEY = "curr_user"
 
@@ -31,6 +34,8 @@ def add_user_to_g():
         g.user = User.query.get(session[CURR_USER_KEY])
     else:
         g.user = None
+
+### ---Login, Logout, Signup routes--- ###
 
 def do_login(user):
     """Log in a user"""
@@ -104,6 +109,27 @@ def signup():
     
     else:
         return render_template('signup.html', form=form)
+
+### ---Search route(s)--- ###
+
+@app.route("/search")
+def search():
+    """Search Results from homepage search"""
+
+    search = request.args.get('q')
+    resp = requests.get("https://api.edamam.com/api/recipes/v2",
+        params={
+            "type": "public",
+            "q": search,
+            "app_id": edamam_app_id,
+            "app_key": edamam_app_key
+        })
+    recipe_data = resp.json()
+    recipes = parse_search_results(recipe_data)
+
+    return render_template("search_results.html", recipes=recipes)
+
+### ---Homepage route(s)--- ###
 
 @app.route("/")
 def home_page():

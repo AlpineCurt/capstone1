@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 bcrypt = Bcrypt()
 db = SQLAlchemy()
 
+###--- SQLAlchemy Models ---###
 
 class Comment(db.Model):
     """An individual comment on a recipe"""
@@ -155,3 +156,12 @@ def conenct_db(app):
 
     db.app = app
     db.init_app(app)
+
+###--- Flask App Models ---###
+
+class RecipeResult():
+    """Helper Model for parsing search results"""
+
+    def __init__(self, name, image):
+        self.name = name
+        self.image = image

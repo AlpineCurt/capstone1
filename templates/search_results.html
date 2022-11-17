@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Wild Carrot{% endblock %}
+
+{% block content %}
+{% for recipe in recipes %}
+    <li class="list-group-item">
+        <img src="{{ recipe.image }}" alt="">
+        <h6>{{recipe.name}}</h6>
+    </li>
+{% endfor %}
+{% endblock %}

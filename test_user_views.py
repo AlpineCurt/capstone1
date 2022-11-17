@@ -147,6 +147,9 @@ class LoginSignupTestCase(TestCase):
             self.assertEqual(resp.status_code, 200)
             self.assertIn("CoolGuy", html)
 
+            test_user = User.query.filter_by(username="CoolGuy").first()
+            self.assertIsInstance(test_user, User, msg="Test user not added to database after signup.")
+
             with c.session_transaction() as sess:
                 self.assertIn("curr_user", sess, msg="User not logged in after successful signup")
                 test_user = User.query.filter_by(username="CoolGuy").first()
