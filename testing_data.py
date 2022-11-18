@@ -1,4 +1,4 @@
-"""Data for unit testing.  Kept in a separate file to cleanliness"""
+"""Data for unit testing.  Kept in a separate file for cleanliness"""
 
 search_results = """{
   "_links": {

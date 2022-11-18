@@ -116,18 +116,29 @@ def signup():
 def search():
     """Search Results from homepage search"""
 
-    search = request.args.get('q')
-    resp = requests.get("https://api.edamam.com/api/recipes/v2",
-        params={
-            "type": "public",
-            "q": search,
-            "app_id": edamam_app_id,
-            "app_key": edamam_app_key
-        })
-    recipe_data = resp.json()
-    recipes = parse_search_results(recipe_data)
+    if request.args.get('q'):
+        search = request.args.get('q')
+        resp = requests.get("https://api.edamam.com/api/recipes/v2",
+            params={
+                "type": "public",
+                "q": search,
+                "app_id": edamam_app_id,
+                "app_key": edamam_app_key
+            })
+    else:
+        resp = requests.get(session["next_page"])
+    
+    resp_json = resp.json()
+    recipes = parse_search_results(resp_json)
 
-    return render_template("search_results.html", recipes=recipes)
+    session["next_page"] = resp_json["_links"]["next"]["href"]
+    results_from = resp_json["from"]
+    results_to = resp_json["to"]
+
+    return render_template("search_results.html",
+        recipes=recipes,
+        results_from=results_from,
+        results_to=results_to)
 
 ### ---Homepage route(s)--- ###
 
