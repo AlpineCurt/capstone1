@@ -76,7 +76,7 @@ class User(db.Model):
         return f"<user #{self.id}: {self.username}>"
     
     @classmethod
-    def signup(cls, username, password, bio):
+    def signup(cls, username, password, bio=None):
         """Sign up a user.  Hashes password and adds user to system."""
 
         hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
@@ -169,20 +169,28 @@ def conenct_db(app):
 ###--- Flask App Models ---###
 
 class RecipeResult():
-    """Helper Model for parsing search results"""
+    """Helper Model for parsing search results
+    DEPRECIATED.  NOT USED ANYMORE
+    Use RecipeInfo instead."""
 
     def __init__(self, name, image, id):
         self.name = name
         self.image = image
-        self.id = id
+        self.edamam_id = id
+        self.favorite = False
 
 class RecipeInfo():
     """Helper Model for info about a single recipe"""
 
-    def __init__(self, info=None):
+    def __init__(self, info=None, name=None, image=None, edamam_id=None):
         
         if info:
             self.parse_Edamam_info(info)
+        else:
+            self.name=name
+            self.image=image
+            self.edamam_id = edamam_id
+        self.favorite=False
 
     def parse_Edamam_info(self, info):
         """Takes json formatted 'info' and fills object attributes"""
@@ -191,3 +199,13 @@ class RecipeInfo():
         self.ingredients = info["recipe"]["ingredientLines"]
         self.image = info["recipe"]["image"]
         self.instructions = info["recipe"]["url"]
+        self.edamam_id = self.get_recipe_id(info)
+    
+    @staticmethod
+    def get_recipe_id(info):
+        """Returns edamam_id from 'info'"""
+
+        start = 38
+        end = info["_links"]["self"]["href"].index("?")
+        id = info["_links"]["self"]["href"][start:end]
+        return id

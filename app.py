@@ -9,7 +9,7 @@ import requests
 from models import db, conenct_db, User, Comment, Recipe, RecipeInfo, Favorite
 from forms import NewUserForm, LoginForm
 
-from helper_functions import parse_search_results
+from helper_functions import parse_search_results, set_favorites
 
 CURR_USER_KEY = "curr_user"
 

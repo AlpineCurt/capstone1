@@ -1,6 +1,6 @@
 """Wild Carrot helper functions"""
 
-from models import RecipeResult
+from models import RecipeResult, RecipeInfo, User
 from json import loads
 
 def parse_search_results(search):
@@ -14,10 +14,11 @@ def parse_search_results(search):
     results = []
 
     for recipe in py_search["hits"]:
-        result = RecipeResult(
-            name=recipe["recipe"]["label"],
-            image=recipe["recipe"]["images"]["REGULAR"]["url"],
-            id=get_recipe_id(recipe))
+        result = RecipeInfo(recipe)
+        # result = RecipeInfo(
+        #     name=recipe["recipe"]["label"],
+        #     image=recipe["recipe"]["images"]["REGULAR"]["url"],
+        #     id=RecipeInfo.get_recipe_id(recipe))
         results.append(result)
     
     return results
@@ -31,5 +32,12 @@ def get_recipe_id(recipe):
 
     return id
 
-def get_recipe_info(recipe):
-    pass
+def set_favorites(user_id, recipes):
+    """sets 'favorite' attribute of each obeject in 'recipes' list"""
+
+    user = User.query.get(user_id)
+    user_favorites = [recipe.edamam_id for recipe in user.favorites]
+
+    for recipe in recipes:
+        if recipe.edamam_id in user_favorites:
+            recipe.favorite = True
