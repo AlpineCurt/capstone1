@@ -129,7 +129,7 @@ class Recipe(db.Model):
     )
 
 
-class Favorites(db.Model):
+class Favorite(db.Model):
     """Mapping User's favorite Recipes"""
 
     __tablename__ = 'user_favorites'
@@ -150,6 +150,15 @@ class Favorites(db.Model):
         db.ForeignKey('recipes.id', ondelete='cascade'),
         nullable=False
     )
+
+    def serialize(self):
+        """Returns a dictionary of attributes.
+        Used for jsonifying data"""
+
+        return {
+            "user_id": self.user_id,
+            "recipe_id": self.recipe_id
+        }
 
 def conenct_db(app):
     """Connect this database to provided Flask app"""

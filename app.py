@@ -1,12 +1,12 @@
 import os
 from secrets_ import flask_secret_key, edamam_app_id, edamam_app_key
 
-from flask import Flask, render_template, request, flash, redirect, session, get_flashed_messages, g
+from flask import Flask, render_template, request, flash, redirect, session, get_flashed_messages, g, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 import requests
 
-from models import db, conenct_db, User, Comment, Recipe, RecipeInfo
+from models import db, conenct_db, User, Comment, Recipe, RecipeInfo, Favorite
 from forms import NewUserForm, LoginForm
 
 from helper_functions import parse_search_results
@@ -154,6 +154,64 @@ def single_recipe(edamam_id):
     recipe =  RecipeInfo(resp.json())
 
     return render_template("single_recipe.html", recipe=recipe)
+
+
+### ---Favoriting API route(s)--- ###
+
+@app.route("/api/favorite", methods=["POST"])
+def add_favorite():
+    """Add a user's favorite"""
+
+    if g.user == None:
+        error = jsonify({"Error": "Must be logged in to add favorites"})
+        return (error, 400)
+    
+    user_id = session[CURR_USER_KEY]
+    recipe_id = request.json["recipe_id"]
+    recipe_name = request.json["recipe_name"]
+
+    recipe = Recipe.query.filter_by(edamam_id=recipe_id).one_or_none()
+
+    # Check if edamam_id already in recipes table.  Add if not.
+    if recipe == None:
+        recipe = Recipe(edamam_id=recipe_id, name=recipe_name)
+        db.session.add(recipe)
+        db.session.commit()
+
+    new_favorite = Favorite(user_id=user_id, recipe_id=recipe.id)
+    db.session.add(new_favorite)
+    db.session.commit()
+
+    return (jsonify(favorite={
+        recipe_name: "Added to favorites"
+    }), 201)
+
+
+@app.route("/api/favorite", methods=["DELETE"])
+def remove_favorite():
+    """Remove a user's favorite"""
+    
+    if g.user == None:
+        error = jsonify({"Error": "Must be logged in to remove favorites"})
+        return (error, 400)
+    
+    user_id = session[CURR_USER_KEY]
+    edamam_recipe_id = request.json["recipe_id"]
+
+    recipe_id = Recipe.query.filter_by(edamam_id=edamam_recipe_id).first()
+
+    old_favorite = Favorite.query.filter(
+        Favorite.user_id==user_id,
+        Favorite.recipe_id==recipe_id.id
+        ).one_or_none()
+    
+    if old_favorite == None:
+        error = jsonify({"Error": "Favorite not found"})
+        return (error, 400)
+    
+    db.session.delete(old_favorite)
+    db.session.commit()
+    return (jsonify(message="Deleted"), 204)
 
 
 ### ---Homepage route(s)--- ###

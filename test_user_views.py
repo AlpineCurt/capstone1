@@ -53,7 +53,7 @@ class LoginSignupTestCase(TestCase):
 
         with self.client as c:
             with c.session_transaction() as sess:
-                sess["curr_user"] = 1
+                sess[CURR_USER_KEY] = 1
         
             resp = c.get("/login")
 
@@ -79,7 +79,7 @@ class LoginSignupTestCase(TestCase):
             self.assertIn("CoolGuy", html)
 
             with c.session_transaction() as sess:
-                self.assertIn("curr_user", sess, msg="curr_user not in session after valid login.")
+                self.assertIn(CURR_USER_KEY, sess, msg="curr_user not in session after valid login.")
     
     def test_login_submit_invalid_credentials(self):
         """User logs in with invalid credentials
@@ -114,7 +114,7 @@ class LoginSignupTestCase(TestCase):
             self.assertIn("Join Wild Carrot", html)
 
             with c.session_transaction() as sess:
-                self.assertNotIn("curr_user", sess, msg="A user was logged in while viewing the signup.html page")
+                self.assertNotIn(CURR_USER_KEY, sess, msg="A user was logged in while viewing the signup.html page")
 
     def test_signup_view_logged_in(self):
         """Display signup page while user is already logged in
@@ -122,7 +122,7 @@ class LoginSignupTestCase(TestCase):
 
         with self.client as c:
             with c.session_transaction() as sess:
-                sess["curr_user"] = 1
+                sess[CURR_USER_KEY] = 1
 
             resp = c.get("/signup", follow_redirects=True)
             html = resp.get_data(as_text=True)
@@ -151,7 +151,7 @@ class LoginSignupTestCase(TestCase):
             self.assertIsInstance(test_user, User, msg="Test user not added to database after signup.")
 
             with c.session_transaction() as sess:
-                self.assertIn("curr_user", sess, msg="User not logged in after successful signup")
+                self.assertIn(CURR_USER_KEY, sess, msg="User not logged in after successful signup")
                 test_user = User.query.filter_by(username="CoolGuy").first()
                 self.assertEqual(sess["curr_user"], test_user.id, msg="session curr_user not set correctly.")
     
@@ -176,4 +176,4 @@ class LoginSignupTestCase(TestCase):
             self.assertIn("Username already taken", html, "username taken error did not display")
 
             with c.session_transaction() as sess:
-                self.assertNotIn("curr_user", sess, msg="User should not be logged in after failed signup")
+                self.assertNotIn(CURR_USER_KEY, sess, msg="User should not be logged in after failed signup")
