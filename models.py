@@ -162,6 +162,23 @@ def conenct_db(app):
 class RecipeResult():
     """Helper Model for parsing search results"""
 
-    def __init__(self, name, image):
+    def __init__(self, name, image, id):
         self.name = name
         self.image = image
+        self.id = id
+
+class RecipeInfo():
+    """Helper Model for info about a single recipe"""
+
+    def __init__(self, info=None):
+        
+        if info:
+            self.parse_Edamam_info(info)
+
+    def parse_Edamam_info(self, info):
+        """Takes json formatted 'info' and fills object attributes"""
+
+        self.name = info["recipe"]["label"]
+        self.ingredients = info["recipe"]["ingredientLines"]
+        self.image = info["recipe"]["image"]
+        self.instructions = info["recipe"]["url"]

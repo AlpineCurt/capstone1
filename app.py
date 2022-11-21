@@ -6,7 +6,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 import requests
 
-from models import db, conenct_db, User, Comment, Recipe
+from models import db, conenct_db, User, Comment, Recipe, RecipeInfo
 from forms import NewUserForm, LoginForm
 
 from helper_functions import parse_search_results
@@ -139,6 +139,22 @@ def search():
         recipes=recipes,
         results_from=results_from,
         results_to=results_to)
+
+@app.route("/recipes/<string:edamam_id>")
+def single_recipe(edamam_id):
+    """Display page for a single recipe"""
+
+    resp = requests.get(f"https://api.edamam.com/api/recipes/v2/{edamam_id}",
+            params={
+                "type": "public",
+                "app_id": edamam_app_id,
+                "app_key": edamam_app_key
+            })
+    
+    recipe =  RecipeInfo(resp.json())
+
+    return render_template("single_recipe.html", recipe=recipe)
+
 
 ### ---Homepage route(s)--- ###
 

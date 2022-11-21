@@ -16,7 +16,20 @@ def parse_search_results(search):
     for recipe in py_search["hits"]:
         result = RecipeResult(
             name=recipe["recipe"]["label"],
-            image=recipe["recipe"]["images"]["REGULAR"]["url"])
+            image=recipe["recipe"]["images"]["REGULAR"]["url"],
+            id=get_recipe_id(recipe))
         results.append(result)
     
     return results
+
+def get_recipe_id(recipe):
+    """Returns Edamam recipe id from a single 'recipe' from API results 'hits' list.
+    Used by parse_search_results"""
+    start = 38
+    end = recipe["_links"]["self"]["href"].index("?")
+    id = recipe["_links"]["self"]["href"][start:end]
+
+    return id
+
+def get_recipe_info(recipe):
+    pass

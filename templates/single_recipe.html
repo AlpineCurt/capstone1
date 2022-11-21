@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}{{recipe.name}}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3>{{recipe.name}}</h3>
+    <img src="{{recipe.image}}" alt="">
+    <h4>Ingredients</h4>
+    <ul>
+        {% for ing in recipe.ingredients %}
+        <ul>{{ing}}</ul>
+        {% endfor %}
+    </ul>
+    <a href="{{recipe.instructions}}">For Coooking Instructions, click here!</a>
+</div>
+{% endblock %}
