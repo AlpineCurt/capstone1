@@ -14,9 +14,14 @@
 {% for recipe in recipes %}
     <li class="list-group-item">
         <a href="/recipes/{{recipe.edamam_id}}">
-            <img src="{{ recipe.image }}" alt="">
             <h6>{{recipe.name}}</h6>
+            <img src="{{ recipe.image }}" alt="">
         </a>
+        {% if recipe.favorite %}
+            <i class="bi bi-star-fill"></i>
+        {% else %}
+            <i class="bi bi-star"></i>
+        {%  endif %}
     </li>
 {% endfor %}
 <p>Displaying results {{results_from}} to {{results_to}}</p>

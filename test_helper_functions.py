@@ -121,10 +121,8 @@ class TestSetFavorites(TestCase):
             with self.client.session_transaction() as sess:
                 sess[CURR_USER_KEY] = test_user.id
 
-        
         results = parse_search_results(search_results)
         set_favorites(test_user.id, results)
-        #import pdb; pdb.set_trace()
 
         self.assertEqual(len(results), 20, msg="Results list did not parse correctly")
 

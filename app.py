@@ -11,6 +11,10 @@ from forms import NewUserForm, LoginForm
 
 from helper_functions import parse_search_results, set_favorites
 
+"""Test data for frontend testing"""
+from testing_data import search_results_2
+from json import loads
+
 CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
@@ -129,6 +133,7 @@ def search():
         resp = requests.get(session["next_page"])
     
     resp_json = resp.json()
+    import pdb; pdb.set_trace()
     recipes = parse_search_results(resp_json)
 
     session["next_page"] = resp_json["_links"]["next"]["href"]
@@ -220,3 +225,22 @@ def remove_favorite():
 def home_page():
     """Show homepage"""
     return render_template("home.html")
+
+
+### ---Frontend Testing route(s)--- ###
+
+@app.route("/test/searchresults")
+def test_search_results():
+    """Page using locally stored data to limit edamam API calls while
+    working on frontend."""
+    
+    search_results1 = loads(search_results_2)
+    recipes = parse_search_results(search_results1)
+    session["next_page"] = search_results1["_links"]["next"]["href"]
+    results_from = search_results1["from"]
+    results_to = search_results1["to"]
+
+    return render_template("search_results.html",
+        recipes=recipes,
+        results_from=results_from,
+        results_to=results_to)
