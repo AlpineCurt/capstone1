@@ -1,7 +1,17 @@
-<nav class="navbar navbar-light bg-primary justify-content-between">
+<nav class="navbar">
     <div class="container">
-        <a href="/" class="navbar-brand text-light">Wild Carrot</a>
-        <ul class="nav navbar-nav flex-row float-right">
+        <a href="/" class="navbar-brand">Wild Carrot</a>
+    </div>
+    <div class="container">
+        {% if not g.user %}
+            <a class="nav-item" href="/signup">Sign Up</a>
+            <a class="nav-item" href="/login">Log In</a>
+        {% else %}
+            <a class="nav-item" href="/users/{{g.user.username}}">{{g.user.username}}</a>
+            <a class="nav-item" href="/logout">Logout</a>
+        {% endif %}
+
+        <!-- <ul class="nav navbar-nav flex-row float-right">
             {% if not g.user %}
                 <li class="nav-item">
                     <a class="nav-link pr-3 text-light" href="/signup">Sign Up</a>
@@ -17,6 +27,6 @@
                     <a class="nav-link pr-3 text-light" href="/logout">Logout</a>
                 </li>
             {% endif %}
-        </ul>
+        </ul> -->
     </div>
 </nav>
