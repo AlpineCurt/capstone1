@@ -1,3 +1,12 @@
+:root {
+    --bg-primary: rgb(161, 100, 161);
+    --bg-secondary: rgb(158, 255, 129);
+    --bg-sec-inner: rgb(207, 248, 194);
+
+    --text-primary: white;
+
+}
+
 body {
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -17,7 +26,7 @@ h2 {
     flex-flow: row wrap;
     justify-content: space-between;
     margin: 0;
-    background: deepskyblue;
+    background: var(--bg-primary);
     /* align-items: center;
     position: relative; */
     /* --bs-navbar-padding-x: 0; */
@@ -25,7 +34,7 @@ h2 {
 
 .nav-item {
     padding: 1em;
-    color: white;
+    color: var(--text-primary);
     text-decoration: none;
 }
 
@@ -37,7 +46,7 @@ h2 {
     text-decoration: none;
     display: block;
     padding: 1em;
-    color: white;
+    color: var(--text-primary);
 }
 
 .justify-content-center{
@@ -68,6 +77,13 @@ h2 {
     margin: 3px;
 }
 
+.search-parent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .search-form {
     display: flex;
     position: relative;
@@ -76,18 +92,93 @@ h2 {
 
 .search-term {
     width: 100%;
-    border: 3px solid #00b4cc;
+    border: 3px solid var(--bg-primary);
     border-right: none;
 }
 
 .search-button {
     width: 40px;
     height: 40px;
-    border: 1px solid #00b4cc;
-    background: #00b4cc;
+    border: 1px solid var(--bg-primary);
+    background: var(--bg-primary);
     text-align: center;
-    color: #fff;
+    color: var(--text-primary);
     border-radius: 0 5px 5px 0;
     cursor: pointer;
     font-size: 20px;
+}
+
+.wrap-collapsible {
+    margin: 3px;
+    width: 50%;
+}
+
+.checkbox-collapse {
+    display: none;
+}
+
+.lbl-toggle {
+    display: block;
+
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: center;
+    
+    padding: .5rem;
+
+    color: black;
+    background: var(--bg-secondary);
+
+    cursor: pointer;
+
+    border-radius: 7px;
+    transition: all 0.25s ease-out;
+}
+
+.lbl-toggle:hover {
+    color: black;
+}
+
+.lbl-toggle::before {
+    content: ' ';
+    display: inline-block;
+
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid currentColor;
+
+    vertical-align: middle;
+    margin-right: .7rem;
+    transform: translateY(-2px);
+
+    transition: transform .2s ease-out;
+}
+
+.collapsible-content .content-inner {
+    background: var(--bg-sec-inner);
+    border-bottom: 1px solid var(--bg-secondary);
+
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    padding: .5rem 1rem;
+}
+
+.collapsible-content {
+    max-height: 0px;
+    overflow: hidden;
+
+    transition: max-height .25s ease-in-out;
+}
+
+.toggle:checked + .lbl-toggle + .collapsible-content {
+    max-height: 100vh;
+}
+
+.toggle:checked + .lbl-toggle::before {
+    transform: rotate(90deg) translateX(-3px);
+}
+
+.toggle:checked + .lbl-toggle {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
 }

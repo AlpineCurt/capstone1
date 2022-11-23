@@ -1,9 +1,22 @@
 <div class="container-search">
     <h2>Search for Recipes</h2>
-    <form class="search-form" action="/search">
-        <input type="text" class="search-term" name="q" placeholder="Yummy food awaits...">
-        <button type="submit" class="search-button">
-            <i class="fa fa-search"></i>
-        </button>
+    
+    <form class="search-parent" action="/search">
+        <div class="search-form">
+            <input type="text" class="search-term" name="q" placeholder="Yummy food awaits...">
+            <button type="submit" class="search-button">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+        <div class="wrap-collapsible">
+            <input type="checkbox" class="toggle checkbox-collapse" id="collapsible">
+            <label for="collapsible" class="lbl-toggle">Dietary Restrictions</label>
+            <div class="collapsible-content">
+                <div class="content-inner">
+                    <p>Test Test Test</p>
+                </div>
+            </div>
+        </div>
     </form>
+    
 </div>
