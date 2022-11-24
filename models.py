@@ -160,6 +160,73 @@ class Favorite(db.Model):
             "recipe_id": self.recipe_id
         }
 
+class SearchPref(db.Model):
+    """A user's search preferences. Columns here must
+    match fields in forms.py -> SearchForm"""
+
+    __tablename__ = "user_search_preferences"
+
+    user_id = id = db.Column(
+        db.Integer,
+        db.ForeignKey('users.id', ondelete='cascade'),
+        primary_key=True
+    )
+
+    low_sodium = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    low_carb = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    high_protein = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    dairy_free = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    egg_free = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    gluten_free = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    kosher = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    low_sugar = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    shellfish_free = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    vegan = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    vegetarian = db.Column(
+        db.Boolean,
+        default=False
+    )
+
 def conenct_db(app):
     """Connect this database to provided Flask app"""
 

@@ -7,7 +7,7 @@ from sqlalchemy.exc import IntegrityError
 import requests
 
 from models import db, conenct_db, User, Comment, Recipe, RecipeInfo, Favorite
-from forms import NewUserForm, LoginForm
+from forms import NewUserForm, LoginForm, SearchForm
 
 from helper_functions import parse_search_results, set_favorites
 
@@ -120,6 +120,8 @@ def signup():
 def search():
     """Search Results from homepage search"""
 
+    #import pdb; pdb.set_trace()
+
     if request.args.get('q'):
         search = request.args.get('q')
         resp = requests.get("https://api.edamam.com/api/recipes/v2",
@@ -133,7 +135,7 @@ def search():
         resp = requests.get(session["next_page"])
     
     resp_json = resp.json()
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
     recipes = parse_search_results(resp_json)
 
     session["next_page"] = resp_json["_links"]["next"]["href"]
@@ -224,7 +226,9 @@ def remove_favorite():
 @app.route("/")
 def home_page():
     """Show homepage"""
-    return render_template("home.html")
+    form = SearchForm()
+    # import pdb; pdb.set_trace()
+    return render_template("home.html", form=form)
 
 
 ### ---Frontend Testing route(s)--- ###

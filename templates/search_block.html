@@ -2,8 +2,10 @@
     <h2>Search for Recipes</h2>
     
     <form class="search-parent" action="/search">
+        {{form.hidden_tag()}}
         <div class="search-form">
-            <input type="text" class="search-term" name="q" placeholder="Yummy food awaits...">
+            {{form.q(class_="search-term", placeholder="Yummy food awaits...")}}
+            <!-- <input type="text" class="search-term" name="q" placeholder="Yummy food awaits..."> -->
             <button type="submit" class="search-button">
                 <i class="fa fa-search"></i>
             </button>
@@ -13,7 +15,15 @@
             <label for="collapsible" class="lbl-toggle">Dietary Restrictions</label>
             <div class="collapsible-content">
                 <div class="content-inner">
-                    <p>Test Test Test</p>
+                    
+                    {% for field in form if field.widget.input_type != 'hidden' and field.name != 'q' %}
+                        <div class="diet-restrict-item">
+                            {{field}}
+                            {{field.label}}
+                        </div>
+                    {% endfor %}
+                    
+                    <!-- <p>Test Test Test</p> -->
                 </div>
             </div>
         </div>

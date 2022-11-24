@@ -163,6 +163,21 @@ h2 {
     padding: .5rem 1rem;
 }
 
+.content-inner {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-content: flex-start;
+    
+}
+
+.diet-restrict-item {
+    display: inline;
+    margin: 3px;
+    width: 125px;
+}
+
 .collapsible-content {
     max-height: 0px;
     overflow: hidden;
