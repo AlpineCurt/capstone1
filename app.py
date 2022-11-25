@@ -227,7 +227,7 @@ def remove_favorite():
 def home_page():
     """Show homepage"""
     form = SearchForm()
-    # import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
     return render_template("home.html", form=form)
 
 

@@ -117,7 +117,7 @@ h2 {
     display: none;
 }
 
-.lbl-toggle {
+.lbl-toggle-diet {
     display: block;
 
     font-weight: bold;
@@ -135,11 +135,55 @@ h2 {
     transition: all 0.25s ease-out;
 }
 
-.lbl-toggle:hover {
+.lbl-toggle-cuisine {
+    display: block;
+
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: center;
+    
+    padding: .5rem;
+
+    color: black;
+    background: var(--bg-secondary);
+
+    cursor: pointer;
+
+    border-radius: 7px;
+    transition: all 0.25s ease-out;
+}
+
+.lbl-toggle-allergies {
+    display: block;
+
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: center;
+    
+    padding: .5rem;
+
+    color: black;
+    background: var(--bg-secondary);
+
+    cursor: pointer;
+
+    border-radius: 7px;
+    transition: all 0.25s ease-out;
+}
+
+.lbl-toggle-diet:hover {
     color: black;
 }
 
-.lbl-toggle::before {
+.lbl-toggle-cuisine:hover {
+    color: black;
+}
+
+.lbl-toggle-allergies:hover {
+    color: black;
+}
+
+.lbl-toggle-diet::before {
     content: ' ';
     display: inline-block;
 
@@ -154,7 +198,55 @@ h2 {
     transition: transform .2s ease-out;
 }
 
-.collapsible-content .content-inner {
+.lbl-toggle-cuisine::before {
+    content: ' ';
+    display: inline-block;
+
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid currentColor;
+
+    vertical-align: middle;
+    margin-right: .7rem;
+    transform: translateY(-2px);
+
+    transition: transform .2s ease-out;
+}
+
+.lbl-toggle-allergies::before {
+    content: ' ';
+    display: inline-block;
+
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid currentColor;
+
+    vertical-align: middle;
+    margin-right: .7rem;
+    transform: translateY(-2px);
+
+    transition: transform .2s ease-out;
+}
+
+.collapsible-content-diet .content-inner {
+    background: var(--bg-sec-inner);
+    border-bottom: 1px solid var(--bg-secondary);
+
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    padding: .5rem 1rem;
+}
+
+.collapsible-content-cuisine .content-inner {
+    background: var(--bg-sec-inner);
+    border-bottom: 1px solid var(--bg-secondary);
+
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    padding: .5rem 1rem;
+}
+
+.collapsible-content-allergies .content-inner {
     background: var(--bg-sec-inner);
     border-bottom: 1px solid var(--bg-secondary);
 
@@ -175,25 +267,65 @@ h2 {
 .diet-restrict-item {
     display: inline;
     margin: 3px;
-    width: 125px;
+    width: 150px;
 }
 
-.collapsible-content {
+.collapsible-content-diet {
     max-height: 0px;
     overflow: hidden;
 
     transition: max-height .25s ease-in-out;
 }
 
-.toggle:checked + .lbl-toggle + .collapsible-content {
+.collapsible-content-cuisine {
+    max-height: 0px;
+    overflow: hidden;
+
+    transition: max-height .25s ease-in-out;
+}
+
+.collapsible-content-allergies {
+    max-height: 0px;
+    overflow: hidden;
+
+    transition: max-height .25s ease-in-out;
+}
+
+.toggle-diet:checked + .lbl-toggle-diet + .collapsible-content-diet {
     max-height: 100vh;
 }
 
-.toggle:checked + .lbl-toggle::before {
+.toggle-diet:checked + .lbl-toggle-diet::before {
     transform: rotate(90deg) translateX(-3px);
 }
 
-.toggle:checked + .lbl-toggle {
+.toggle-diet:checked + .lbl-toggle-diet {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.toggle-cuisine:checked + .lbl-toggle-cuisine + .collapsible-content-cuisine {
+    max-height: 100vh;
+}
+
+.toggle-cuisine:checked + .lbl-toggle-cuisine::before {
+    transform: rotate(90deg) translateX(-3px);
+}
+
+.toggle-cuisine:checked + .lbl-toggle-cuisine {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.toggle-allergies:checked + .lbl-toggle-allergies + .collapsible-content-allergies {
+    max-height: 100vh;
+}
+
+.toggle-allergies:checked + .lbl-toggle-allergies::before {
+    transform: rotate(90deg) translateX(-3px);
+}
+
+.toggle-allergies:checked + .lbl-toggle-allergies {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
 }

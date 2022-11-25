@@ -2,6 +2,11 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, TextAreaField, BooleanField
 from wtforms.validators import InputRequired, Length
 
+class BooleanField2(BooleanField):
+    def __init__(self, label='', validators=None, group='', **kwargs):
+        super(BooleanField2, self).__init__(label, validators, **kwargs)
+        self.group = group
+
 class NewUserForm(FlaskForm):
     """Form for adding a user"""
     username = StringField("Username", validators=[InputRequired()])
@@ -17,14 +22,39 @@ class SearchForm(FlaskForm):
     """Recipe Search form.  Fields here must
     match fields in models.py -> SearchPref"""
     q = StringField("Search", validators=[InputRequired()])
-    low_sodium = BooleanField("Low Sodium")
-    low_carb = BooleanField("Low Carb")
-    high_protein = BooleanField("High Protein")
-    dairy_free = BooleanField("Dairy Free")
-    egg_free = BooleanField("Egg Free")
-    gluten_free = BooleanField("Gluten Free")
-    kosher = BooleanField("Kosher")
-    low_sugar = BooleanField("Low Sugar")
-    shellfish_free =BooleanField("Shellfish Free")
-    vegan = BooleanField("Vegan")
-    vegetarian = BooleanField("Vegetarian")
+
+    # Dietary Restrictions
+    low_sodium = BooleanField2("Low Sodium", group="diet")
+    low_carb = BooleanField2("Low Carb", group="diet")
+    high_protein = BooleanField2("High Protein", group="diet")
+    kosher = BooleanField2("Kosher", group="diet")
+    low_sugar = BooleanField2("Low Sugar", group="diet")
+    vegan = BooleanField2("Vegan", group="diet")
+    vegetarian = BooleanField2("Vegetarian", group="diet")
+    pescatarian =BooleanField2("Pescatarian", group="diet")
+
+    # Allergies
+    dairy_free = BooleanField2("Dairy Free", group="allergy")
+    egg_free = BooleanField2("Egg Free", group="allergy")
+    shellfish_free =BooleanField2("Shellfish Free", group="allergy")
+    gluten_free = BooleanField2("Gluten Free", group="allergy")
+    peanut_free = BooleanField2("Peanut Free", group="allergy")
+
+    # Cuisine Type
+
+    american = BooleanField2("American", group="cuisine")
+    asian = BooleanField2("Asian", group="cuisine")
+    british = BooleanField2("British", group="cuisine")
+    caribbean = BooleanField2("Caribbean", group="cuisine")
+    central_europe = BooleanField2("Central Europe", group="cuisine")
+    chinese = BooleanField2("Chinese", group="cuisine")
+    eastern_europe = BooleanField2("Eastern Europe", group="cuisine")
+    french = BooleanField2("French", group="cuisine")
+    indian = BooleanField2("Indian", group="cuisine")
+    italian = BooleanField2("Italian", group="cuisine")
+    japanese = BooleanField2("Japanese", group="cuisine")
+    mediterranean = BooleanField2("Mediterranean", group="cuisine")
+    mexican = BooleanField2("Mexican", group="cuisine")
+    middle_eastern = BooleanField2("Middle Eastern", group="cuisine")
+    south_american = BooleanField2("South American", group="cuisine")
+    south_east_asian = BooleanField2("South East Asian", group="cuisine")

@@ -172,6 +172,8 @@ class SearchPref(db.Model):
         primary_key=True
     )
 
+    # Dietary Restrictions
+
     low_sodium = db.Column(
         db.Boolean,
         default=False
@@ -187,32 +189,12 @@ class SearchPref(db.Model):
         default=False
     )
 
-    dairy_free = db.Column(
-        db.Boolean,
-        default=False
-    )
-
-    egg_free = db.Column(
-        db.Boolean,
-        default=False
-    )
-
-    gluten_free = db.Column(
-        db.Boolean,
-        default=False
-    )
-
     kosher = db.Column(
         db.Boolean,
         default=False
     )
 
     low_sugar = db.Column(
-        db.Boolean,
-        default=False
-    )
-
-    shellfish_free = db.Column(
         db.Boolean,
         default=False
     )
@@ -226,6 +208,121 @@ class SearchPref(db.Model):
         db.Boolean,
         default=False
     )
+
+    pescatarian = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    # Allergies
+
+    dairy_free = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    egg_free = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    shellfish_free = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    gluten_free = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    peanut_free = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    # Cuisine Type
+
+    american = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    asian = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    british = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    caribbean = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    central_europe = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    chinese = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    eastern_europe = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    french = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    indian = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    italian = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    japanese = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    mediterranean = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    mexican = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    middle_eastern = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    south_american = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    south_east_asian = db.Column(
+        db.Boolean,
+        default=False
+    )
+
 
 def conenct_db(app):
     """Connect this database to provided Flask app"""
