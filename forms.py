@@ -21,6 +21,7 @@ class LoginForm(FlaskForm):
 class SearchForm(FlaskForm):
     """Recipe Search form.  Fields here must
     match fields in models.py -> SearchPref"""
+
     q = StringField("Search", validators=[InputRequired()])
 
     # Dietary Restrictions
@@ -42,19 +43,19 @@ class SearchForm(FlaskForm):
 
     # Cuisine Type
 
-    american = BooleanField2("American", group="cuisine")
-    asian = BooleanField2("Asian", group="cuisine")
-    british = BooleanField2("British", group="cuisine")
-    caribbean = BooleanField2("Caribbean", group="cuisine")
-    central_europe = BooleanField2("Central Europe", group="cuisine")
-    chinese = BooleanField2("Chinese", group="cuisine")
-    eastern_europe = BooleanField2("Eastern Europe", group="cuisine")
-    french = BooleanField2("French", group="cuisine")
-    indian = BooleanField2("Indian", group="cuisine")
-    italian = BooleanField2("Italian", group="cuisine")
-    japanese = BooleanField2("Japanese", group="cuisine")
-    mediterranean = BooleanField2("Mediterranean", group="cuisine")
-    mexican = BooleanField2("Mexican", group="cuisine")
-    middle_eastern = BooleanField2("Middle Eastern", group="cuisine")
-    south_american = BooleanField2("South American", group="cuisine")
-    south_east_asian = BooleanField2("South East Asian", group="cuisine")
+    American = BooleanField2("American", group="cuisine")
+    Asian = BooleanField2("Asian", group="cuisine")
+    British = BooleanField2("British", group="cuisine")
+    Caribbean = BooleanField2("Caribbean", group="cuisine")
+    Central_europe = BooleanField2("Central Europe", group="cuisine")
+    Chinese = BooleanField2("Chinese", group="cuisine")
+    Eastern_Europe = BooleanField2("Eastern Europe", group="cuisine")
+    French = BooleanField2("French", group="cuisine")
+    Indian = BooleanField2("Indian", group="cuisine")
+    Italian = BooleanField2("Italian", group="cuisine")
+    Japanese = BooleanField2("Japanese", group="cuisine")
+    Mediterranean = BooleanField2("Mediterranean", group="cuisine")
+    Mexican = BooleanField2("Mexican", group="cuisine")
+    Middle_Eastern = BooleanField2("Middle Eastern", group="cuisine")
+    South_American = BooleanField2("South American", group="cuisine")
+    South_East_Asian = BooleanField2("South East Asian", group="cuisine")

@@ -1,10 +1,11 @@
 import os
 
 from unittest import TestCase
-from helper_functions import parse_search_results, get_recipe_id, set_favorites
+from helper_functions import parse_search_results, get_recipe_id, set_favorites, build_search_params
 from testing_data import search_results, single_recipe
 from json import loads
 from models import db, RecipeInfo, User, Favorite, Recipe
+from flask import request
 
 os.environ['DATABASE_URL'] = "postgresql:///wildcarrot_test"
 
@@ -134,3 +135,31 @@ class TestSetFavorites(TestCase):
         self.assertFalse(results[0].favorite, msg="A not favorited recipe was set to True")
         self.assertFalse(results[4].favorite, msg="A not favorited recipe was set to True")
         self.assertFalse(results[11].favorite, msg="A not favorited recipe was set to True")
+
+
+class TestBuildSearchParams(TestCase):
+    """Test Model for build_search_params()"""
+
+    def setUp(self):
+        self.client = app.test_client()
+
+    def test_build_search_params(self):
+        """Does the helper function return dictionary with
+        the correct key:values?"""
+
+        query = {
+            "q": "curry",
+            "low_sodium": "y",
+            "vegan": "y",
+            "gluten_free": "y",
+            "Italian": "y",
+            "South_East_Asian": "y"
+        }
+
+        params = build_search_params(query)
+
+        self.assertIn("low-sodium", params["diet"], msg="low_sodium did not get added to diet list")
+        self.assertIn("vegan", params["health"], msg="vegan not added to health list")
+        self.assertIn("gluten-free", params["health"], msg="gluten-free not added to health list")
+        self.assertIn("Italian", params["cuisineType"], msg="Italian not added to cuisineType list")
+        self.assertIn("South East Asian", params["cuisineType"], msg="South East Asian not added to cuisineType list")

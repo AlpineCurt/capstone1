@@ -172,6 +172,17 @@ class SearchPref(db.Model):
         primary_key=True
     )
 
+    diets = {'balanced', 'high_fiber', 'high_protein', 'low_sodium',
+    'low_carb', 'low_fat'}
+    health = {'dairy-free', 'egg-free', 'fish_free', 'gluten_free',
+    'kosher', 'low_potassium', 'low_sugar', 'lupine-free', 'mediterranean',
+    'paleo', 'peanut_free', 'pescatarian', 'shellfish_free', 'vegan',
+    'vegetarian'}
+    cuisines = {'American', 'Asian', 'British', 'Caribbean', 'Central_Europe',
+    'Chinese', 'Eastern_Europe', 'French', 'Indian', 'Italian', 'Japanese',
+    'Mediterranean', 'Mexican', 'Middle_Eastern', 'South_American',
+    'South_East_Asian'}
+
     # Dietary Restrictions
 
     low_sodium = db.Column(
@@ -243,82 +254,82 @@ class SearchPref(db.Model):
 
     # Cuisine Type
 
-    american = db.Column(
+    American = db.Column(
         db.Boolean,
         default=False
     )
 
-    asian = db.Column(
+    Asian = db.Column(
         db.Boolean,
         default=False
     )
 
-    british = db.Column(
+    British = db.Column(
         db.Boolean,
         default=False
     )
 
-    caribbean = db.Column(
+    Caribbean = db.Column(
         db.Boolean,
         default=False
     )
 
-    central_europe = db.Column(
+    Central_Europe = db.Column(
         db.Boolean,
         default=False
     )
 
-    chinese = db.Column(
+    Chinese = db.Column(
         db.Boolean,
         default=False
     )
 
-    eastern_europe = db.Column(
+    Eastern_Europe = db.Column(
         db.Boolean,
         default=False
     )
 
-    french = db.Column(
+    French = db.Column(
         db.Boolean,
         default=False
     )
 
-    indian = db.Column(
+    Indian = db.Column(
         db.Boolean,
         default=False
     )
 
-    italian = db.Column(
+    Italian = db.Column(
         db.Boolean,
         default=False
     )
 
-    japanese = db.Column(
+    Japanese = db.Column(
         db.Boolean,
         default=False
     )
 
-    mediterranean = db.Column(
+    Mediterranean = db.Column(
         db.Boolean,
         default=False
     )
 
-    mexican = db.Column(
+    Mexican = db.Column(
         db.Boolean,
         default=False
     )
 
-    middle_eastern = db.Column(
+    Middle_Eastern = db.Column(
         db.Boolean,
         default=False
     )
 
-    south_american = db.Column(
+    South_American = db.Column(
         db.Boolean,
         default=False
     )
 
-    south_east_asian = db.Column(
+    South_East_Asian = db.Column(
         db.Boolean,
         default=False
     )

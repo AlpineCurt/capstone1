@@ -27,9 +27,6 @@ h2 {
     justify-content: space-between;
     margin: 0;
     background: var(--bg-primary);
-    /* align-items: center;
-    position: relative; */
-    /* --bs-navbar-padding-x: 0; */
 }
 
 .nav-item {

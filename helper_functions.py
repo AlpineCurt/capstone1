@@ -1,7 +1,8 @@
 """Wild Carrot helper functions"""
 
-from models import RecipeResult, RecipeInfo, User
+from models import RecipeResult, RecipeInfo, User, SearchPref
 from json import loads
+from secrets_ import edamam_app_id, edamam_app_key
 
 def parse_search_results(search):
     """Parses 'search' and returns list of RecipeResult objects
@@ -15,10 +16,6 @@ def parse_search_results(search):
 
     for recipe in py_search["hits"]:
         result = RecipeInfo(recipe)
-        # result = RecipeInfo(
-        #     name=recipe["recipe"]["label"],
-        #     image=recipe["recipe"]["images"]["REGULAR"]["url"],
-        #     id=RecipeInfo.get_recipe_id(recipe))
         results.append(result)
     
     return results
@@ -41,3 +38,26 @@ def set_favorites(user_id, recipes):
     for recipe in recipes:
         if recipe.edamam_id in user_favorites:
             recipe.favorite = True
+
+def build_search_params(request_args):
+    """Retturns a dictionary of request parameters based on request_args"""
+
+    params = {
+        "type": "public",
+        "q": request_args.get('q'),
+        "app_id": edamam_app_id,
+        "app_key": edamam_app_key,
+        "diet": [],
+        "health": [],
+        "cuisineType": []
+    }
+    
+    for req in request_args:
+        if req in SearchPref.diets:
+            params["diet"].append(req.replace('_', '-'))
+        elif req in SearchPref.health:
+            params["health"].append(req.replace('_', '-'))
+        elif req in SearchPref.cuisines:
+            params["cuisineType"].append(req.replace('_', ' '))
+
+    return params

@@ -9,7 +9,7 @@ import requests
 from models import db, conenct_db, User, Comment, Recipe, RecipeInfo, Favorite
 from forms import NewUserForm, LoginForm, SearchForm
 
-from helper_functions import parse_search_results, set_favorites
+from helper_functions import parse_search_results, build_search_params
 
 """Test data for frontend testing"""
 from testing_data import search_results_2
@@ -120,22 +120,13 @@ def signup():
 def search():
     """Search Results from homepage search"""
 
-    #import pdb; pdb.set_trace()
-
     if request.args.get('q'):
-        search = request.args.get('q')
-        resp = requests.get("https://api.edamam.com/api/recipes/v2",
-            params={
-                "type": "public",
-                "q": search,
-                "app_id": edamam_app_id,
-                "app_key": edamam_app_key
-            })
+        params = build_search_params(request.args.to_dict())
+        resp = requests.get("https://api.edamam.com/api/recipes/v2", params=params)
     else:
         resp = requests.get(session["next_page"])
     
     resp_json = resp.json()
-    #import pdb; pdb.set_trace()
     recipes = parse_search_results(resp_json)
 
     session["next_page"] = resp_json["_links"]["next"]["href"]
@@ -227,7 +218,6 @@ def remove_favorite():
 def home_page():
     """Show homepage"""
     form = SearchForm()
-    #import pdb; pdb.set_trace()
     return render_template("home.html", form=form)
 
 
