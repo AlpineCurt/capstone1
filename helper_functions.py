@@ -2,6 +2,7 @@
 
 from models import RecipeResult, RecipeInfo, User, SearchPref
 from json import loads
+from forms import SearchForm
 from secrets_ import edamam_app_id, edamam_app_key
 
 def parse_search_results(search):
@@ -72,3 +73,17 @@ def valid_params(params):
     cuisine = True if params['cuisineType'] != [] else False
 
     return q or diet or health or cuisine
+
+def set_modify_search_form(params):
+    """Returns a SearchForm object with values of fields
+    set according to params dict"""
+
+    form = SearchForm()
+    #import pdb; pdb.set_trace()
+    for key, value in params.items():
+        if key == 'q':
+            form['q'].data = value
+        else:
+            form[key].data = True
+    
+    return form

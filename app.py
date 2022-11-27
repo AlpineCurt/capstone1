@@ -9,7 +9,7 @@ import requests
 from models import db, conenct_db, User, Comment, Recipe, RecipeInfo, Favorite
 from forms import NewUserForm, LoginForm, SearchForm
 
-from helper_functions import parse_search_results, build_search_params, valid_params
+from helper_functions import parse_search_results, build_search_params, valid_params, set_modify_search_form
 
 """Test data for frontend testing"""
 from testing_data import search_results_2
@@ -138,14 +138,21 @@ def search():
         session["next_page"] = resp_json["_links"]["next"]["href"]
         results_from = resp_json["from"]
         results_to = resp_json["to"]
+        count = resp_json["count"]
     except KeyError:
         results_from = None
         results_to = None
+        count = None
+
+    form_search_mod = set_modify_search_form(request.args.to_dict())
+    #import pdb; pdb.set_trace()
 
     return render_template("search_results.html",
         recipes=recipes,
         results_from=results_from,
-        results_to=results_to
+        results_to=results_to,
+        form_search_mod=form_search_mod,
+        count=count
         )
 
 @app.route("/recipes/<string:edamam_id>")
@@ -243,8 +250,13 @@ def test_search_results():
     session["next_page"] = search_results1["_links"]["next"]["href"]
     results_from = search_results1["from"]
     results_to = search_results1["to"]
+    count = search_results1["count"]
+
+    form = SearchForm()
 
     return render_template("search_results.html",
         recipes=recipes,
         results_from=results_from,
-        results_to=results_to)
+        results_to=results_to,
+        form=form,
+        count=count)

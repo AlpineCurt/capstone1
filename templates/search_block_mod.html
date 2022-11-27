@@ -1,0 +1,53 @@
+<div class="container-search">
+    <form class="search-parent" action="/search">
+        <div class="search-form">
+            {{form_search_mod.q(class_="search-term", placeholder="Yummy food awaits...")}}
+            <button type="submit" class="search-button">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+        <div class="wrap-collapsible">
+            <input type="checkbox" class="toggle-diet checkbox-collapse" id="collapsible-diet">
+            <label for="collapsible-diet" class="lbl-toggle-diet">Dietary Restrictions</label>
+            <div class="collapsible-content-diet diet">
+                <div class="content-inner">
+                    {% for field in form_search_mod if field.widget.input_type != 'hidden' and field.group == 'diet' %}
+                        <div class="diet-restrict-item">
+                            {{field}}
+                            {{field.label}}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="wrap-collapsible">
+            <input type="checkbox" class="toggle-cuisine checkbox-collapse" id="collapsible-cuisine">
+            <label for="collapsible-cuisine" class="lbl-toggle-cuisine">Cuisine Type</label>
+            <div class="collapsible-content-cuisine cuisine">
+                <div class="content-inner">
+                    {% for field in form_search_mod if field.widget.input_type != 'hidden' and field.group == 'cuisine' %}
+                        <div class="diet-restrict-item">
+                            {{field}}
+                            {{field.label}}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="wrap-collapsible">
+            <input type="checkbox" class="toggle-allergies checkbox-collapse" id="collapsible-allergies">
+            <label for="collapsible-allergies" class="lbl-toggle-allergies">Allergies</label>
+            <div class="collapsible-content-allergies allergy">
+                <div class="content-inner">
+                    {% for field in form_search_mod if field.widget.input_type != 'hidden' and field.group == 'allergy' %}
+                        <div class="diet-restrict-item">
+                            {{field}}
+                            {{field.label}}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </form>
+    
+</div>

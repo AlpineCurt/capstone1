@@ -15,6 +15,10 @@ h2 {
     margin: 3px;
 }
 
+.search-home {
+    text-align: center;
+}
+
 .container {
     display: flex;
     justify-content: space-between;
@@ -105,9 +109,20 @@ h2 {
     font-size: 20px;
 }
 
+.search-modify {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .wrap-collapsible {
     margin: 3px;
     width: 50%;
+}
+
+.wrap-collapsible-search {
+    margin: 3px;
+    width: 100%;
 }
 
 .checkbox-collapse {
@@ -161,6 +176,24 @@ h2 {
 
     color: black;
     background: var(--bg-secondary);
+
+    cursor: pointer;
+
+    border-radius: 7px;
+    transition: all 0.25s ease-out;
+}
+
+.lbl-toggle-search {
+    display: block;
+
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: center;
+    
+    padding: .5rem;
+
+    color: black;
+    background: white;
 
     cursor: pointer;
 
@@ -225,6 +258,21 @@ h2 {
     transition: transform .2s ease-out;
 }
 
+.lbl-toggle-search::before {
+    content: ' ';
+    display: inline-block;
+
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid currentColor;
+
+    vertical-align: middle;
+    margin-right: .7rem;
+    transform: translateY(-2px);
+
+    transition: transform .2s ease-out;
+}
+
 .collapsible-content-diet .content-inner {
     background: var(--bg-sec-inner);
     border-bottom: 1px solid var(--bg-secondary);
@@ -252,6 +300,15 @@ h2 {
     padding: .5rem 1rem;
 }
 
+.collapsible-content-search .content-inner {
+    background: white;
+    border-bottom: 1px solid white;
+
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    padding: .5rem 1rem;
+}
+
 .content-inner {
     display: flex;
     flex-flow: row wrap;
@@ -270,21 +327,24 @@ h2 {
 .collapsible-content-diet {
     max-height: 0px;
     overflow: hidden;
-
     transition: max-height .25s ease-in-out;
 }
 
 .collapsible-content-cuisine {
     max-height: 0px;
     overflow: hidden;
-
     transition: max-height .25s ease-in-out;
 }
 
 .collapsible-content-allergies {
     max-height: 0px;
     overflow: hidden;
+    transition: max-height .25s ease-in-out;
+}
 
+.collapsible-content-search {
+    max-height: 0px;
+    overflow: hidden;
     transition: max-height .25s ease-in-out;
 }
 
@@ -327,9 +387,22 @@ h2 {
     border-bottom-left-radius: 0;
 }
 
+.toggle-search:checked + .lbl-toggle-search + .collapsible-content-search {
+    max-height: 100vh;
+}
+
+.toggle-search:checked + .lbl-toggle-search::before {
+    transform: rotate(90deg) translateX(-3px);
+}
+
+.toggle-search:checked + .lbl-toggle-search {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
 .recipe-list {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-content: flex-start;
@@ -338,18 +411,41 @@ h2 {
 .single-recipe {
     display: flex;
     flex-flow: column nowrap;
+    margin: 10px;
+    max-width: 300px;
+    justify-content: flex-end;
 }
 
 .recipe-name {
     display: flex;
     flex-flow: row wrap;
+    justify-content: center;
+    max-width: 300px;
 }
 
-.recipe-pic-params {
-    display: flex;
-    flex-direction: row-reverse;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
+.recipe-pic {
+    margin-top: 5px;
+    position: relative;
+}
 
+.recipe-name-link {
+    text-decoration: none;
+    font-size: 20px;
+    overflow-wrap: break-word;
+    text-align: center;
+}
+
+.fav-star {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 35px;
+}
+
+.bi-star-fill {
+    color: white;
+}
+
+.fav-recipe {
+    color: gold;
 }

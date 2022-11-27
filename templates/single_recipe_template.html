@@ -1,15 +1,15 @@
 <div class="single-recipe">
     <div class="recipe-name">
-        <a href="/recipes/{{recipe.edamam_id}}">{{recipe. name}}</a>
-        {% if recipe.favorite %}
-            <i class="bi bi-star"></i>
-        {% else %}
-            <i class="bi bi-star"></i>
-        {%  endif %}
+        <a class="recipe-name-link" href="/recipes/{{recipe.edamam_id}}">{{recipe. name}}</a>
     </div>
-    <div class="recipe-pic-params">
+    <div class="recipe-pic">
         <a href="/recipes/{{recipe.edamam_id}}">
             <img src="{{recipe.image}}" alt="">
         </a>
+        {% if recipe.favorite %}
+            <i class="fav-star bi bi-star-fill fav-recipe"></i>
+        {% else %}
+            <i class="fav-star bi bi-star-fill"></i>
+        {%  endif %}
     </div>
 </div>

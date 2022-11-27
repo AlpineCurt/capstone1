@@ -2,14 +2,18 @@
 
 {% block title %}Wild Carrot{% endblock %}
 {% block content %}
-<div class="row justify-content-md-center"></div>
-    <form action="/search">
-        <input type="search" name="q" id="search" placeholder="Search">
-        <button class="btn btn-default">
-            <span class="fa fa-search"></span>
-        </button>
-    </form>
+<div class="search-modify">
+    <div class="wrap-collapsible-search">
+        <input type="checkbox" class="toggle-search checkbox-collapse" id="collapsible-search">
+        <label for="collapsible-search" class="lbl-toggle-search">Modify Search</label>
+        <div class="collapsible-content-search search">
+            <div class="content-inner">
+                {% include 'search_block_mod.html' %}
+            </div>
+        </div>
+    </div>
 </div>
+<p>Displaying results {{results_from}} to {{results_to}} of {{count}}</p>
 <div class="recipe-list">
     {% for recipe in recipes %}
         {% include 'single_recipe_template.html' %}
@@ -17,7 +21,6 @@
 </div>
 
 {% if results_from %}
-<p>Displaying results {{results_from}} to {{results_to}}</p>
 <a href="/search">Next Page of Results</a>
 {% endif %}
 {% endblock %}
