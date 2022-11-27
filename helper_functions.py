@@ -51,7 +51,7 @@ def build_search_params(request_args):
         "health": [],
         "cuisineType": []
     }
-    
+
     for req in request_args:
         if req in SearchPref.diets:
             params["diet"].append(req.replace('_', '-'))
@@ -61,3 +61,14 @@ def build_search_params(request_args):
             params["cuisineType"].append(req.replace('_', ' '))
 
     return params
+
+def valid_params(params):
+    """checks params dict to make sure at least one search
+    criteria has been submitted.  Returns False if not."""
+
+    q = True if params['q'] != '' else False
+    diet = True if params['diet'] != [] else False
+    health = True if params['health'] != [] else False
+    cuisine = True if params['cuisineType'] != [] else False
+
+    return q or diet or health or cuisine

@@ -326,3 +326,30 @@ h2 {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
 }
+
+.recipe-list {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+}
+
+.single-recipe {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.recipe-name {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.recipe-pic-params {
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+}

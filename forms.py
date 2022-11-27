@@ -22,7 +22,7 @@ class SearchForm(FlaskForm):
     """Recipe Search form.  Fields here must
     match fields in models.py -> SearchPref"""
 
-    q = StringField("Search", validators=[InputRequired()])
+    q = StringField("Search")
 
     # Dietary Restrictions
     low_sodium = BooleanField2("Low Sodium", group="diet")

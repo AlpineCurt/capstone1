@@ -9,7 +9,7 @@ import requests
 from models import db, conenct_db, User, Comment, Recipe, RecipeInfo, Favorite
 from forms import NewUserForm, LoginForm, SearchForm
 
-from helper_functions import parse_search_results, build_search_params
+from helper_functions import parse_search_results, build_search_params, valid_params
 
 """Test data for frontend testing"""
 from testing_data import search_results_2
@@ -120,8 +120,13 @@ def signup():
 def search():
     """Search Results from homepage search"""
 
+    params = build_search_params(request.args.to_dict())
+
+    if not valid_params(params):
+        flash("Please enter a search term or select a category", "success")
+        return redirect("/")
+
     if request.args.get('q'):
-        params = build_search_params(request.args.to_dict())
         resp = requests.get("https://api.edamam.com/api/recipes/v2", params=params)
     else:
         resp = requests.get(session["next_page"])
@@ -129,14 +134,19 @@ def search():
     resp_json = resp.json()
     recipes = parse_search_results(resp_json)
 
-    session["next_page"] = resp_json["_links"]["next"]["href"]
-    results_from = resp_json["from"]
-    results_to = resp_json["to"]
+    try:
+        session["next_page"] = resp_json["_links"]["next"]["href"]
+        results_from = resp_json["from"]
+        results_to = resp_json["to"]
+    except KeyError:
+        results_from = None
+        results_to = None
 
     return render_template("search_results.html",
         recipes=recipes,
         results_from=results_from,
-        results_to=results_to)
+        results_to=results_to
+        )
 
 @app.route("/recipes/<string:edamam_id>")
 def single_recipe(edamam_id):
@@ -151,7 +161,7 @@ def single_recipe(edamam_id):
     
     recipe =  RecipeInfo(resp.json())
 
-    return render_template("single_recipe.html", recipe=recipe)
+    return render_template("single_recipe_view.html", recipe=recipe)
 
 
 ### ---Favoriting API route(s)--- ###

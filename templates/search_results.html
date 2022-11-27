@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block title %}Wild Carrot{% endblock %}
-
 {% block content %}
 <div class="row justify-content-md-center"></div>
     <form action="/search">
@@ -11,19 +10,14 @@
         </button>
     </form>
 </div>
-{% for recipe in recipes %}
-    <li class="list-group-item">
-        <a href="/recipes/{{recipe.edamam_id}}">
-            <h6>{{recipe.name}}</h6>
-            <img src="{{ recipe.image }}" alt="">
-        </a>
-        {% if recipe.favorite %}
-            <i class="bi bi-star-fill"></i>
-        {% else %}
-            <i class="bi bi-star"></i>
-        {%  endif %}
-    </li>
-{% endfor %}
+<div class="recipe-list">
+    {% for recipe in recipes %}
+        {% include 'single_recipe_template.html' %}
+    {% endfor %}
+</div>
+
+{% if results_from %}
 <p>Displaying results {{results_from}} to {{results_to}}</p>
 <a href="/search">Next Page of Results</a>
+{% endif %}
 {% endblock %}
