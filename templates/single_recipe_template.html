@@ -7,9 +7,9 @@
             <img src="{{recipe.image}}" alt="">
         </a>
         {% if recipe.favorite %}
-            <i class="fav-star bi bi-star-fill fav-recipe"></i>
+            <i id="{{recipe.edamam_id}}" class="fav-star bi bi-star-fill fav-recipe"></i>
         {% else %}
-            <i class="fav-star bi bi-star-fill"></i>
+            <i id="{{recipe.edamam_id}}" class="fav-star bi bi-star-fill"></i>
         {%  endif %}
     </div>
 </div>

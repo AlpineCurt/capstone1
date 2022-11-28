@@ -1,7 +1,7 @@
 <div class="container-search">
     <form class="search-parent" action="/search">
         <div class="search-form">
-            {{form_search_mod.q(class_="search-term", placeholder="Yummy food awaits...")}}
+            {{form.q(class_="search-term", placeholder="Yummy food awaits...")}}
             <button type="submit" class="search-button">
                 <i class="fa fa-search"></i>
             </button>
@@ -11,7 +11,7 @@
             <label for="collapsible-diet" class="lbl-toggle-diet">Dietary Restrictions</label>
             <div class="collapsible-content-diet diet">
                 <div class="content-inner">
-                    {% for field in form_search_mod if field.widget.input_type != 'hidden' and field.group == 'diet' %}
+                    {% for field in form if field.widget.input_type != 'hidden' and field.group == 'diet' %}
                         <div class="diet-restrict-item">
                             {{field}}
                             {{field.label}}
@@ -25,7 +25,7 @@
             <label for="collapsible-cuisine" class="lbl-toggle-cuisine">Cuisine Type</label>
             <div class="collapsible-content-cuisine cuisine">
                 <div class="content-inner">
-                    {% for field in form_search_mod if field.widget.input_type != 'hidden' and field.group == 'cuisine' %}
+                    {% for field in form if field.widget.input_type != 'hidden' and field.group == 'cuisine' %}
                         <div class="diet-restrict-item">
                             {{field}}
                             {{field.label}}
@@ -39,7 +39,7 @@
             <label for="collapsible-allergies" class="lbl-toggle-allergies">Allergies</label>
             <div class="collapsible-content-allergies allergy">
                 <div class="content-inner">
-                    {% for field in form_search_mod if field.widget.input_type != 'hidden' and field.group == 'allergy' %}
+                    {% for field in form if field.widget.input_type != 'hidden' and field.group == 'allergy' %}
                         <div class="diet-restrict-item">
                             {{field}}
                             {{field.label}}
@@ -49,5 +49,4 @@
             </div>
         </div>
     </form>
-    
 </div>

@@ -144,15 +144,14 @@ def search():
         results_to = None
         count = None
 
-    form_search_mod = set_modify_search_form(request.args.to_dict())
-    #import pdb; pdb.set_trace()
+    form = set_modify_search_form(request.args.to_dict())
 
     return render_template("search_results.html",
         recipes=recipes,
         results_from=results_from,
         results_to=results_to,
-        form_search_mod=form_search_mod,
-        count=count
+        count=count,
+        form=form,
         )
 
 @app.route("/recipes/<string:edamam_id>")

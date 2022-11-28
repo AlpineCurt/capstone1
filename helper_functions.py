@@ -79,7 +79,7 @@ def set_modify_search_form(params):
     set according to params dict"""
 
     form = SearchForm()
-    #import pdb; pdb.set_trace()
+    
     for key, value in params.items():
         if key == 'q':
             form['q'].data = value
