@@ -9,7 +9,7 @@ import requests
 from models import db, conenct_db, User, Comment, Recipe, RecipeInfo, Favorite
 from forms import NewUserForm, LoginForm, SearchForm
 
-from helper_functions import parse_search_results, build_search_params, valid_params, set_modify_search_form
+from helper_functions import parse_search_results, build_search_params, valid_params, set_modify_search_form, set_favorites
 
 """Test data for frontend testing"""
 from testing_data import search_results_2
@@ -133,6 +133,7 @@ def search():
     
     resp_json = resp.json()
     recipes = parse_search_results(resp_json)
+    set_favorites(g.user.id, recipes)
 
     try:
         session["next_page"] = resp_json["_links"]["next"]["href"]
@@ -181,14 +182,14 @@ def add_favorite():
         return (error, 400)
     
     user_id = session[CURR_USER_KEY]
-    recipe_id = request.json["recipe_id"]
+    edamam_id = request.json["edamam_id"]
     recipe_name = request.json["recipe_name"]
 
-    recipe = Recipe.query.filter_by(edamam_id=recipe_id).one_or_none()
+    recipe = Recipe.query.filter_by(edamam_id=edamam_id).one_or_none()
 
     # Check if edamam_id already in recipes table.  Add if not.
     if recipe == None:
-        recipe = Recipe(edamam_id=recipe_id, name=recipe_name)
+        recipe = Recipe(edamam_id=edamam_id, name=recipe_name)
         db.session.add(recipe)
         db.session.commit()
 
@@ -210,7 +211,7 @@ def remove_favorite():
         return (error, 400)
     
     user_id = session[CURR_USER_KEY]
-    edamam_recipe_id = request.json["recipe_id"]
+    edamam_recipe_id = request.json["edamam_id"]
 
     recipe_id = Recipe.query.filter_by(edamam_id=edamam_recipe_id).first()
 

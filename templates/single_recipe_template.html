@@ -1,15 +1,15 @@
 <div class="single-recipe">
     <div class="recipe-name">
-        <a class="recipe-name-link" href="/recipes/{{recipe.edamam_id}}">{{recipe. name}}</a>
+        <a class="recipe-name-link" href="/recipes/{{recipe.edamam_id}}">{{recipe.name}}</a>
     </div>
     <div class="recipe-pic">
         <a href="/recipes/{{recipe.edamam_id}}">
             <img src="{{recipe.image}}" alt="">
         </a>
         {% if recipe.favorite %}
-            <i id="{{recipe.edamam_id}}" class="fav-star bi bi-star-fill fav-recipe"></i>
+            <i data-edamam-id="{{recipe.edamam_id}}" data-recipe-name="{{recipe.name}}" class="fav-star bi bi-star-fill fav-recipe"></i>
         {% else %}
-            <i id="{{recipe.edamam_id}}" class="fav-star bi bi-star-fill"></i>
+            <i data-edamam-id="{{recipe.edamam_id}}" data-recipe-name="{{recipe.name}}" class="fav-star bi bi-star-fill"></i>
         {%  endif %}
     </div>
 </div>
