@@ -3,15 +3,26 @@
 {% block title %}{{recipe.name}}{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h3>{{recipe.name}}</h3>
-    <img src="{{recipe.image}}" alt="">
-    <h4>Ingredients</h4>
-    <ul>
-        {% for ing in recipe.ingredients %}
-        <ul>{{ing}}</ul>
-        {% endfor %}
-    </ul>
+<h3>{{recipe.name}}</h3>
+<div class="s-recipe-container">
+    <div class="recipe-pic">
+        <img src="{{recipe.image}}" alt="">
+        {% if recipe.favorite %}
+            <i data-edamam-id="{{recipe.edamam_id}}" data-recipe-name="{{recipe.name}}" class="fav-star bi bi-star-fill fav-recipe"></i>
+        {% else %}
+            <i data-edamam-id="{{recipe.edamam_id}}" data-recipe-name="{{recipe.name}}" class="fav-star bi bi-star-fill"></i>
+        {%  endif %}
+    </div>
+    <div class="s-recipe-ing">
+        <h4>Ingredients</h4>
+        <div class="ing-list">
+            {% for ing in recipe.ingredients %}
+                <div class="ing-item">{{ing}}</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="cook-inst">
     <a href="{{recipe.instructions}}">For Coooking Instructions, click here!</a>
 </div>
 {% endblock %}

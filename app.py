@@ -133,7 +133,8 @@ def search():
     
     resp_json = resp.json()
     recipes = parse_search_results(resp_json)
-    set_favorites(g.user.id, recipes)
+    if g.user:
+        set_favorites(g.user.id, recipes)
 
     try:
         session["next_page"] = resp_json["_links"]["next"]["href"]
@@ -167,6 +168,9 @@ def single_recipe(edamam_id):
             })
     
     recipe =  RecipeInfo(resp.json())
+    if g.user:
+        set_favorites(g.user.id, [recipe])
+
 
     return render_template("single_recipe_view.html", recipe=recipe)
 

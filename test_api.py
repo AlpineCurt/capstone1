@@ -42,7 +42,7 @@ class TestFavorites(TestCase):
                 self.assertNotIn(CURR_USER_KEY, sess, msg="User logged in, preventing rest of tests from running correctly.")
             
             TEST_FAV_DATA = {
-                "recipe_id": "2f6ad7442c3853e72770662ec6c51bcb"
+                "edamam_id": "2f6ad7442c3853e72770662ec6c51bcb"
             }
 
             resp = c.post("/api/favorite", json=TEST_FAV_DATA)
@@ -70,7 +70,7 @@ class TestFavorites(TestCase):
                 sess[CURR_USER_KEY] = test_user.id
 
             TEST_FAV_DATA = {
-                "recipe_id": "2f6ad7442c3853e72770662ec6c51bcb",
+                "edamam_id": "2f6ad7442c3853e72770662ec6c51bcb",
                 "recipe_name": "Thai Shrimp Curry"
             }
 
@@ -124,7 +124,7 @@ class TestFavorites(TestCase):
                 sess[CURR_USER_KEY] = test_user.id
 
             TEST_FAV_DATA = {
-                "recipe_id": "2f6ad7442c3853e72770662ec6c51bcb",
+                "edamam_id": "2f6ad7442c3853e72770662ec6c51bcb",
                 "recipe_name": "Thai Shrimp Curry"
             }
         
@@ -180,7 +180,7 @@ class TestFavorites(TestCase):
                 self.assertNotIn(CURR_USER_KEY, sess, msg="User logged in, preventing rest of tests from running correctly.")
             
             TEST_DATA = {
-                "recipe_id": "2f6ad7442c3853e72770662ec6c51bcb"
+                "edamam_id": "2f6ad7442c3853e72770662ec6c51bcb"
             }
 
             resp = c.delete("/api/favorite", json=TEST_DATA)
@@ -222,7 +222,7 @@ class TestFavorites(TestCase):
                 sess[CURR_USER_KEY] = test_user.id
 
             TEST_DATA = {
-                "recipe_id": "2f6ad7442c3853e72770662ec6c51bcb"
+                "edamam_id": "2f6ad7442c3853e72770662ec6c51bcb"
             }
 
             resp = c.delete("/api/favorite", json=TEST_DATA)
