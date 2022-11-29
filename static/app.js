@@ -1,5 +1,3 @@
- console.log('Hi mom!');
-
 const $favStar = $('.fav-star');
 
 $favStar.on("click",  async function(evt) {
