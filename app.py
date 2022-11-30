@@ -39,7 +39,7 @@ def add_user_to_g():
     else:
         g.user = None
 
-### ---Login, Logout, Signup routes--- ###
+### ---Login, Logout, Signup, Profile routes--- ###
 
 def do_login(user):
     """Log in a user"""
@@ -171,9 +171,30 @@ def single_recipe(edamam_id):
     if g.user:
         set_favorites(g.user.id, [recipe])
 
-
     return render_template("single_recipe_view.html", recipe=recipe)
 
+@app.route("/favorites")
+def user_profile():
+    """Display a profile page for a user."""
+
+    if CURR_USER_KEY not in session:
+        flash("Please login or create an account to view and save favorites", "danger")
+        return redirect("/")
+    
+    user = User.query.get(g.user.id)
+
+    user_favs = user.favorites
+    recipes = [RecipeInfo(
+        name=fav.name,
+        image=fav.image,
+        edamam_id=fav.edamam_id
+    ) for fav in user_favs]
+
+    for fav in recipes:
+        fav.favorite = True
+    
+    return render_template("user_favorites.html", user=user, recipes=recipes)
+    
 
 ### ---Favoriting API route(s)--- ###
 
@@ -188,12 +209,15 @@ def add_favorite():
     user_id = session[CURR_USER_KEY]
     edamam_id = request.json["edamam_id"]
     recipe_name = request.json["recipe_name"]
+    image = request.json["image"]
 
     recipe = Recipe.query.filter_by(edamam_id=edamam_id).one_or_none()
 
     # Check if edamam_id already in recipes table.  Add if not.
     if recipe == None:
-        recipe = Recipe(edamam_id=edamam_id, name=recipe_name)
+        recipe = Recipe(edamam_id=edamam_id,
+            name=recipe_name,
+            image=image)
         db.session.add(recipe)
         db.session.commit()
 

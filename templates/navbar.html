@@ -8,6 +8,7 @@
             <a class="nav-item" href="/login">Log In</a>
         {% else %}
             <a class="nav-item" href="/users/{{g.user.username}}">{{g.user.username}}</a>
+            <a class="nav-item" href="/favorites">Favorites</a>
             <a class="nav-item" href="/logout">Logout</a>
         {% endif %}
     </div>

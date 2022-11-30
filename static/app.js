@@ -4,6 +4,7 @@ $favStar.on("click",  async function(evt) {
     const $star = $(evt.target);
     const edamamId = $star.attr("data-edamam-id");
     const recipeName = $star.attr("data-recipe-name");
+    const recipeImage = $star.attr("data-recipe-image");
 
     if ($star.hasClass("fav-recipe")) {
         const resp = await axios({
@@ -11,7 +12,8 @@ $favStar.on("click",  async function(evt) {
             method: "DELETE",
             data: {
                 edamam_id: edamamId,
-                recipe_name: recipeName
+                recipe_name: recipeName,
+                image: recipeImage
             }
         });
         if (resp.status === 204){
@@ -23,7 +25,8 @@ $favStar.on("click",  async function(evt) {
             method: "POST",
             data: {
                 edamam_id: edamamId,
-                recipe_name: recipeName
+                recipe_name: recipeName,
+                image: recipeImage
             }
         });
         if (resp.status === 201){

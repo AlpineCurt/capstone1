@@ -128,6 +128,11 @@ class Recipe(db.Model):
         nullable=False
     )
 
+    image = db.Column(
+        db.Text,
+        nullable=False
+    )
+
 
 class Favorite(db.Model):
     """Mapping User's favorite Recipes"""
@@ -364,7 +369,7 @@ class RecipeInfo():
         else:
             self.name=name
             self.image=image
-            self.edamam_id = edamam_id
+            self.edamam_id=edamam_id
         self.favorite=False
 
     def parse_Edamam_info(self, info):

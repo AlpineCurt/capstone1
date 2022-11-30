@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}{{user.username}}{% endblock %}
+
+{% block content %}
+<h3>{{user.username}} Favorites</h3>
+
+<div class="recipe-list">
+    {% for recipe in recipes %}
+        {% include 'single_recipe_template.html' %}
+    {% endfor %}
+</div>
+
+{% endblock %}

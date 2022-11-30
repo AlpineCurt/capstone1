@@ -71,7 +71,8 @@ class TestFavorites(TestCase):
 
             TEST_FAV_DATA = {
                 "edamam_id": "2f6ad7442c3853e72770662ec6c51bcb",
-                "recipe_name": "Thai Shrimp Curry"
+                "recipe_name": "Thai Shrimp Curry",
+                "image": "www.image.com"
             }
 
             resp = c.post("/api/favorite", json=TEST_FAV_DATA)
@@ -113,7 +114,8 @@ class TestFavorites(TestCase):
 
         test_r = Recipe(
             edamam_id="2f6ad7442c3853e72770662ec6c51bcb",
-            name="Thai Shrimp Curry"
+            name="Thai Shrimp Curry",
+            image="www.image.com"
         )
         db.session.add(test_r)
         db.session.commit()
@@ -125,7 +127,8 @@ class TestFavorites(TestCase):
 
             TEST_FAV_DATA = {
                 "edamam_id": "2f6ad7442c3853e72770662ec6c51bcb",
-                "recipe_name": "Thai Shrimp Curry"
+                "recipe_name": "Thai Shrimp Curry",
+                "image": "www.image.com"
             }
         
         resp = c.post("/api/favorite", json=TEST_FAV_DATA)
@@ -166,7 +169,8 @@ class TestFavorites(TestCase):
 
         test_r = Recipe(
             edamam_id="2f6ad7442c3853e72770662ec6c51bcb",
-            name="Thai Shrimp Curry"
+            name="Thai Shrimp Curry",
+            image="www.image.com"
         )
         db.session.add(test_r)
         db.session.commit()
@@ -205,7 +209,8 @@ class TestFavorites(TestCase):
 
         test_r = Recipe(
             edamam_id="2f6ad7442c3853e72770662ec6c51bcb",
-            name="Thai Shrimp Curry"
+            name="Thai Shrimp Curry",
+            image="www.image.com"
         )
         db.session.add(test_r)
         db.session.commit()
