@@ -126,7 +126,7 @@ def search():
         flash("Please enter a search term or select a category", "success")
         return redirect("/")
 
-    if request.args.get('q'):
+    if len(request.args) > 0:
         resp = requests.get("https://api.edamam.com/api/recipes/v2", params=params)
     else:
         resp = requests.get(session["next_page"])
