@@ -3,20 +3,17 @@
 {% block title %}Sign Up{% endblock %}
 
 {% block content %}
-<div class="row justify-content-md-center">
-    <div class="col-md-7 col-lg-5">
-        <h2>Join Wild Carrot</h2>
-        <form method="POST">
-            {{ form.hidden_tag() }}
-            {% for field in form if field.widget.input_type != 'hidden' %}
-                {% for error in field.erorrs %}
-                    <span class="text-danger">{{error}}</span>
-                {% endfor %}
-                {{ field(placeholder=field.label.text, class="form-control") }}
+<div class="container-search">
+    <h2>Join Wild Carrot</h2>
+    <form class="container-search" method="POST">
+        {{ form.hidden_tag() }}
+        {% for field in form if field.widget.input_type != 'hidden' %}
+            {% for error in field.erorrs %}
+                <span class="text-danger">{{error}}</span>
             {% endfor %}
-
-            <button class="btn btn-primary btn-lg btn-block">Sign Up</button>
-        </form>
-    </div>
+            {{ field(placeholder=field.label.text, class="form-control") }}
+        {% endfor %}
+        <button>Sign Up</button>
+    </form>
 </div>
 {% endblock %}
