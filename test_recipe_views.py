@@ -4,7 +4,8 @@ import os
 
 from unittest import TestCase
 from flask import session
-from models import db, conenct_db, User
+from models import db, conenct_db, User, Recipe, Favorite
+from testing_data import test_image
 
 os.environ['DATABASE_URL'] = "postgresql:///wildcarrot_test"
 
@@ -48,7 +49,7 @@ class TestHomePage(TestCase):
         """Home Page view while logged in
         / GET"""
 
-        User.signup(
+        test_user = User.signup(
             username="CoolGuy",
             password="ilikesunglasses",
             bio="I really like dolphins."
@@ -57,7 +58,7 @@ class TestHomePage(TestCase):
 
         with self.client as c:
             with self.client.session_transaction() as sess:
-                sess[CURR_USER_KEY] = 1
+                sess[CURR_USER_KEY] = test_user.id
             
             resp = c.get("/")
             html = resp.get_data(as_text=True)
@@ -161,3 +162,63 @@ class TestSearchResults(TestCase):
             self.assertIn("bacon", html, msg="An ingredient did not appear in html.")
             self.assertIn("For Coooking Instructions", html, "Instructions link did not appear in html.")
             self.assertIn("CoolGuy", html, msg="A logged in username did not appear on the page")
+
+
+class TestFavoritesView(TestCase):
+    """Testing for displaying a user's favorited recipes"""
+
+    def setUp(self):
+        """Clear any botched data; Create test client; Clear session"""
+
+        User.query.delete()
+        db.session.commit()
+
+        self.client = app.test_client()
+        with self.client.session_transaction() as sess:
+            sess.clear()
+    
+    def test_favorites_not_logged_in(self):
+        """Favorites page while NOT logged in
+        /favorites GET"""
+
+        with self.client as c:
+
+            resp = c.get("/favorites", follow_redirects=True)
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn("Please login or create", html, msg="flash message not included in redirect")
+
+    def test_favorites_logged_in(self):
+        """Favorites page while logged in
+        /favorites GET"""
+
+        test_user = User.signup(
+            username="CoolGuy",
+            password="ilikesunglasses",
+            bio="I really like dolphins."
+        )
+        db.session.commit()
+
+        test_recipe = Recipe(edamam_id="4d63b2fef227383bd4891f5c5217e88b",
+            name="Meat Lovers' Pizza Dip",
+            image=test_image)
+        db.session.add(test_recipe)
+        db.session.commit()
+
+        test_favorite = Favorite(user_id=test_user.id, recipe_id=test_recipe.id)
+        db.session.add(test_favorite)
+        db.session.commit()
+
+        with self.client as c:
+
+            with self.client.session_transaction() as sess:
+                sess[CURR_USER_KEY] = test_user.id
+            
+            resp = c.get("/favorites")
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn("Meat Lovers", html, msg="favorited recipe did not appear in html")
+            self.assertNotIn("Please login or create", html, msg="Flash message for not being logged in appeared.")
+            self.assertIn("CoolGuy", html, msg="Logged in username did not appear in html")
