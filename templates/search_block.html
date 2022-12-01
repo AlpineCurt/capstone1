@@ -48,5 +48,19 @@
                 </div>
             </div>
         </div>
+        <div class="wrap-collapsible">
+            <input type="checkbox" class="toggle-meal-type checkbox-collapse" id="collapsible-meal-type">
+            <label for="collapsible-meal-type" class="lbl-toggle-meal-type">Meal Type</label>
+            <div class="collapsible-content-meal-type meal-type">
+                <div class="content-inner">
+                    {% for field in form if field.widget.input_type != 'hidden' and field.group == 'mealType' %}
+                        <div class="diet-restrict-item">
+                            {{field}}
+                            {{field.label}}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </form>
 </div>
