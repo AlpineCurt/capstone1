@@ -42,7 +42,6 @@ class SearchForm(FlaskForm):
     peanut_free = BooleanField2("Peanut Free", group="allergy")
 
     # Cuisine Type
-
     American = BooleanField2("American", group="cuisine")
     Asian = BooleanField2("Asian", group="cuisine")
     British = BooleanField2("British", group="cuisine")
@@ -59,3 +58,9 @@ class SearchForm(FlaskForm):
     Middle_Eastern = BooleanField2("Middle Eastern", group="cuisine")
     South_American = BooleanField2("South American", group="cuisine")
     South_East_Asian = BooleanField2("South East Asian", group="cuisine")
+
+    # Meal Type
+    Breakfast = BooleanField2("Breakfast", group="mealType")
+    Lunch = BooleanField2("Lunch", group="mealType")
+    Dinner = BooleanField2("Dinner", group="mealType")
+    Snack = BooleanField2("Snack", group="mealType")

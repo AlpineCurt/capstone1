@@ -187,6 +187,7 @@ class SearchPref(db.Model):
     'Chinese', 'Eastern_Europe', 'French', 'Indian', 'Italian', 'Japanese',
     'Mediterranean', 'Mexican', 'Middle_Eastern', 'South_American',
     'South_East_Asian'}
+    meal_types = {'Breakfast', 'Lunch', 'Dinner', 'Snack'}
 
     # Dietary Restrictions
 
@@ -335,6 +336,28 @@ class SearchPref(db.Model):
     )
 
     South_East_Asian = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    # Meal Type
+
+    Breakfast = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    Lunch = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    Dinner = db.Column(
+        db.Boolean,
+        default=False
+    )
+
+    Snack = db.Column(
         db.Boolean,
         default=False
     )

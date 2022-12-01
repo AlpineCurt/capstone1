@@ -50,7 +50,8 @@ def build_search_params(request_args):
         "app_key": edamam_app_key,
         "diet": [],
         "health": [],
-        "cuisineType": []
+        "cuisineType": [],
+        "mealType": []
     }
 
     for req in request_args:
@@ -60,6 +61,8 @@ def build_search_params(request_args):
             params["health"].append(req.replace('_', '-'))
         elif req in SearchPref.cuisines:
             params["cuisineType"].append(req.replace('_', ' '))
+        elif req in SearchPref.meal_types:
+            params["mealType"].append(req)
 
     return params
 
@@ -71,8 +74,9 @@ def valid_params(params):
     diet = True if params['diet'] != [] else False
     health = True if params['health'] != [] else False
     cuisine = True if params['cuisineType'] != [] else False
+    meal_type = True if params['mealType'] != [] else False
 
-    return q or diet or health or cuisine
+    return q or diet or health or cuisine or meal_type
 
 def set_modify_search_form(params):
     """Returns a SearchForm object with values of fields
