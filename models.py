@@ -105,6 +105,14 @@ class User(db.Model):
             if bcrypt.check_password_hash(user.password, password):
                 return user
         return False
+    
+    @classmethod
+    def update_password(cls, username, password):
+
+        hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
+        user = cls.query.filter_by(username=username).first()
+        user.password = hashed_pwd
+        db.session.add(user)
 
 
 class Recipe(db.Model):

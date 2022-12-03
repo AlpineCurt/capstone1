@@ -69,3 +69,7 @@ class PasswordResetForm(FlaskForm):
     """Form for submitting email for recovering password"""
 
     email = StringField("Email", validators=[InputRequired()])
+
+class NewPasswordForm(FlaskForm):
+    """Form for submitting a new password"""
+    password = PasswordField("New Password", validators=[InputRequired()])

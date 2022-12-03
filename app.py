@@ -8,9 +8,9 @@ from sqlalchemy.exc import IntegrityError
 import requests
 
 from models import db, conenct_db, User, Comment, Recipe, RecipeInfo, Favorite
-from forms import NewUserForm, LoginForm, SearchForm, PasswordResetForm
+from forms import NewUserForm, LoginForm, SearchForm, PasswordResetForm, NewPasswordForm
 
-from helper_functions import parse_search_results, build_search_params, valid_params, set_modify_search_form, set_favorites, get_reset_token
+from helper_functions import parse_search_results, build_search_params, valid_params, set_modify_search_form, set_favorites, get_reset_token, verify_reset_token, generate_reset_email
 
 """Test data for frontend testing"""
 from testing_data import search_results_2
@@ -286,9 +286,9 @@ def sendmail():
 
     mail.send(msg)
 
-@app.route("/resetpassword", methods=["GET", "POST"])
-def reset_password():
-    """Password Recovery"""
+@app.route("/recoverpassword", methods=["GET", "POST"])
+def recover_password():
+    """User requests to reset password"""
 
     form = PasswordResetForm()
 
@@ -298,9 +298,36 @@ def reset_password():
             """No need to let phishers know an email is invalid"""
             return render_template("password_reset_email_sent.html")
         
-        ### LEFT OFF HERE ###
+        msg = generate_reset_email(user)
+        mail.send(msg)
+        return render_template("password_reset_email_sent.html")
+
         
     return render_template("password_forgot.html", form=form)
+
+@app.route("/resetpassword", methods=["GET", "POST"])
+def reset_password():
+    """Link from password reset email.
+    Verify jwt, then allow user to set new password"""
+    
+    form = NewPasswordForm()
+    if form.validate_on_submit():
+        User.update_password(request.form["username"], form.password.data)
+        db.session.commit()
+        flash("Password Updated", "success")
+        return redirect("/")
+
+    if not request.args["token"]:
+        """Token missing"""
+        return redirect("/")
+    
+    token = request.args["token"]
+    username = verify_reset_token(token)
+    if username == None:
+        flash("Invalid token", "danger")
+        return redirect("/recoverpassword")
+
+    return render_template("/password_reset.html", form=form, username=username)
 
 
 ### ---Frontend Testing route(s)--- ###

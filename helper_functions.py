@@ -105,8 +105,14 @@ def get_reset_token(username, expires=500):
         key=jwt_key,
         algorithm="HS256")
 
-def verify_reset_token():
-    pass
+def verify_reset_token(token):
+    """Decodes a jwt token and returns the User object"""
+    try:
+        username = jwt.decode(token, key=jwt_key, algorithms=["HS256"])["username"]
+    except Exception as e:
+        print(e)
+        return None
+    return username
 
 def generate_reset_email(user):
     """Returns a flask mail Message object ready to be sent."""
@@ -117,6 +123,6 @@ def generate_reset_email(user):
     msg.subject = "Wild Carrot Password Reset"
     msg.sender = "DO-NOT-REPLY@wildcarrot.com"
     msg.recipients = [user.email]
-    msg.html = render_template()  # Need to make html and include token in html?
+    msg.html = render_template("password_reset_msg.html", token=token)  # Need to make html and include token in html?
 
     return msg
