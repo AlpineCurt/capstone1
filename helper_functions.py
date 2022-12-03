@@ -1,9 +1,13 @@
 """Wild Carrot helper functions"""
 
-from models import RecipeResult, RecipeInfo, User, SearchPref
+from models import RecipeInfo, User, SearchPref
 from json import loads
 from forms import SearchForm
 from secrets_ import edamam_app_id, edamam_app_key
+import jwt
+from secrets_ import jwt_key
+from flask_mail import Message
+from flask import render_template
 
 def parse_search_results(search):
     """Parses 'search' and returns list of RecipeResult objects
@@ -91,3 +95,28 @@ def set_modify_search_form(params):
             form[key].data = True
     
     return form
+
+def get_reset_token(username, expires=500):
+    """Returns an encoded JWT"""
+
+    return jwt.encode({
+        "username": username
+        },
+        key=jwt_key,
+        algorithm="HS256")
+
+def verify_reset_token():
+    pass
+
+def generate_reset_email(user):
+    """Returns a flask mail Message object ready to be sent."""
+    
+    token = get_reset_token(user.username)
+    
+    msg = Message()
+    msg.subject = "Wild Carrot Password Reset"
+    msg.sender = "DO-NOT-REPLY@wildcarrot.com"
+    msg.recipients = [user.email]
+    msg.html = render_template()  # Need to make html and include token in html?
+
+    return msg

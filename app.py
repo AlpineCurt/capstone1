@@ -1,15 +1,16 @@
 import os
-from secrets_ import flask_secret_key, edamam_app_id, edamam_app_key
+from secrets_ import flask_secret_key, edamam_app_id, edamam_app_key, google_app_password
 
 from flask import Flask, render_template, request, flash, redirect, session, get_flashed_messages, g, jsonify
+from flask_mail import Mail, Message
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 import requests
 
 from models import db, conenct_db, User, Comment, Recipe, RecipeInfo, Favorite
-from forms import NewUserForm, LoginForm, SearchForm
+from forms import NewUserForm, LoginForm, SearchForm, PasswordResetForm
 
-from helper_functions import parse_search_results, build_search_params, valid_params, set_modify_search_form, set_favorites
+from helper_functions import parse_search_results, build_search_params, valid_params, set_modify_search_form, set_favorites, get_reset_token
 
 """Test data for frontend testing"""
 from testing_data import search_results_2
@@ -27,6 +28,14 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.config['SECRET_KEY'] = flask_secret_key
+
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USERNAME'] = 'wildcarrot.recovery@gmail.com'
+app.config['MAIL_PASSWORD'] = google_app_password
+mail = Mail(app)
+
 toolbar = DebugToolbarExtension(app)
 
 conenct_db(app)
@@ -100,7 +109,7 @@ def signup():
             user = User.signup(
                 username=form.username.data,
                 password=form.password.data,
-                bio=form.bio.data
+                email=form.email.data
             )
             db.session.commit()
         except IntegrityError:
@@ -264,6 +273,34 @@ def home_page():
     """Show homepage"""
     form = SearchForm()
     return render_template("home.html", form=form)
+
+### ---Password Recovery route(s)--- ###
+
+@app.route("/sendmail")
+def sendmail():
+    msg = Message()
+    msg.subject = "Hello!"
+    msg.recipients = ['alpinecurt@gmail.com']
+    msg.sender = 'wildcarrot.recovery@gmail.com'
+    msg.body = 'Did this work???'
+
+    mail.send(msg)
+
+@app.route("/resetpassword", methods=["GET", "POST"])
+def reset_password():
+    """Password Recovery"""
+
+    form = PasswordResetForm()
+
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).one_or_none()
+        if user == None:
+            """No need to let phishers know an email is invalid"""
+            return render_template("password_reset_email_sent.html")
+        
+        ### LEFT OFF HERE ###
+        
+    return render_template("password_forgot.html", form=form)
 
 
 ### ---Frontend Testing route(s)--- ###

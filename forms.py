@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, TextAreaField, BooleanField
-from wtforms.validators import InputRequired, Length
+from wtforms import StringField, PasswordField, TextAreaField, BooleanField, EmailField
+from wtforms.validators import InputRequired, Length, Email
 
 class BooleanField2(BooleanField):
     def __init__(self, label='', validators=None, group='', **kwargs):
@@ -11,7 +11,7 @@ class NewUserForm(FlaskForm):
     """Form for adding a user"""
     username = StringField("Username", validators=[InputRequired()])
     password= PasswordField("Psssword", validators=[InputRequired(), Length(min=8)])
-    bio = TextAreaField("Bio")
+    email = EmailField("Email", validators=[InputRequired(), Email()])
 
 class LoginForm(FlaskForm):
     """Login form"""
@@ -64,3 +64,8 @@ class SearchForm(FlaskForm):
     Lunch = BooleanField2("Lunch", group="mealType")
     Dinner = BooleanField2("Dinner", group="mealType")
     Snack = BooleanField2("Snack", group="mealType")
+
+class PasswordResetForm(FlaskForm):
+    """Form for submitting email for recovering password"""
+
+    email = StringField("Email", validators=[InputRequired()])

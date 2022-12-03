@@ -57,7 +57,7 @@ class User(db.Model):
         nullable=False
     )
 
-    bio = db.Column(
+    email = db.Column(
         db.Text
     )
 
@@ -76,7 +76,7 @@ class User(db.Model):
         return f"<user #{self.id}: {self.username}>"
     
     @classmethod
-    def signup(cls, username, password, bio=None):
+    def signup(cls, username, password, email):
         """Sign up a user.  Hashes password and adds user to system."""
 
         hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
@@ -84,7 +84,7 @@ class User(db.Model):
         user = User(
             username=username,
             password=hashed_pwd,
-            bio=bio
+            email=email
         )
 
         db.session.add(user)
