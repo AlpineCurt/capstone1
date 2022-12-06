@@ -1,22 +1,32 @@
 :root {
-    --bg-primary: rgb(161, 100, 161);
-    --bg-secondary: rgb(158, 255, 129);
-    --bg-sec-inner: rgb(207, 248, 194);
+    --bg-primary: #331832;
+    --bg-secondary: #9EE493;
+    --bg-sec-inner: #9EE493;
 
-    --text-primary: white;
+    --text-primary: #D5C5C8;
+    --nav-hover: #DE9151;
 
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Serif;
+    background: var(--text-primary);
 }
 
 h2 {
     margin: 3px;
+    font-family: Overpass;
+    font-weight: 900;
+    font-style: oblique;
 }
 
 .search-home {
     text-align: center;
+    margin: 20px;
+}
+
+.home-p {
+    font-family: Corben, sans-serif;
 }
 
 .container {
@@ -37,10 +47,12 @@ h2 {
     padding: 1em;
     color: var(--text-primary);
     text-decoration: none;
+    font-family: Corben, sans-serif;
+    font-size: 120%;
 }
 
 .nav-item:hover {
-    background: purple;
+    background: var(--nav-hover);
 }
 
 .navbar-brand {
@@ -48,6 +60,10 @@ h2 {
     display: block;
     padding: 1em;
     color: var(--text-primary);
+}
+
+.logo {
+    max-height: 50px;
 }
 
 .justify-content-center{
@@ -504,7 +520,7 @@ h2 {
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 35px;
+    max-height: 40px;
 }
 
 .bi-star-fill {

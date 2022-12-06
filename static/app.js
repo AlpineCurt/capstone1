@@ -6,6 +6,8 @@ $favStar.on("click",  async function(evt) {
     const recipeName = $star.attr("data-recipe-name");
     const recipeImage = $star.attr("data-recipe-image");
 
+    console.log("clicked carrot!");
+
     if ($star.hasClass("fav-recipe")) {
         const resp = await axios({
             url: "/api/favorite",
@@ -18,6 +20,7 @@ $favStar.on("click",  async function(evt) {
         });
         if (resp.status === 204){
             $star.toggleClass("fav-recipe");
+            $star.attr("src", "/static/empty_carrot.png");
         }
     } else {
         const resp = await axios({
@@ -31,6 +34,7 @@ $favStar.on("click",  async function(evt) {
         });
         if (resp.status === 201){
             $star.toggleClass("fav-recipe");
+            $star.attr("src", "/static/filled_carrot.png");
         }
     } 
 });

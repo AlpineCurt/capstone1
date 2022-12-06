@@ -7,9 +7,9 @@
             <img src="{{recipe.image}}" alt="">
         </a>
         {% if recipe.favorite %}
-            <i data-edamam-id="{{recipe.edamam_id}}" data-recipe-name="{{recipe.name}}" data-recipe-image="{{recipe.image}}" class="fav-star bi bi-star-fill fav-recipe"></i>
+            <img class="fav-star fav-recipe" src="/static/filled_carrot.png" alt="" data-edamam-id="{{recipe.edamam_id}}" data-recipe-name="{{recipe.name}}" data-recipe-image="{{recipe.image}}">
         {% else %}
-            <i data-edamam-id="{{recipe.edamam_id}}" data-recipe-name="{{recipe.name}}" data-recipe-image="{{recipe.image}}" class="fav-star bi bi-star-fill"></i>
+            <img class="fav-star" src="/static/empty_carrot.png" alt="" data-edamam-id="{{recipe.edamam_id}}" data-recipe-name="{{recipe.name}}" data-recipe-image="{{recipe.image}}">
         {%  endif %}
     </div>
 </div>
