@@ -8,13 +8,13 @@
         </div>
         <div class="wrap-collapsible">
             <input type="checkbox" class="toggle-diet checkbox-collapse" id="collapsible-diet">
-            <label for="collapsible-diet" class="lbl-toggle-diet">Dietary Restrictions</label>
+            <label for="collapsible-diet" class="lbl-toggle-diet overpass">Dietary Restrictions</label>
             <div class="collapsible-content-diet diet">
                 <div class="content-inner">
                     {% for field in form if field.widget.input_type != 'hidden' and field.group == 'diet' %}
                         <div class="diet-restrict-item">
                             {{field}}
-                            {{field.label}}
+                            {{field.label(class_=("overpass"))}}
                         </div>
                     {% endfor %}
                 </div>
@@ -22,13 +22,13 @@
         </div>
         <div class="wrap-collapsible">
             <input type="checkbox" class="toggle-cuisine checkbox-collapse" id="collapsible-cuisine">
-            <label for="collapsible-cuisine" class="lbl-toggle-cuisine">Cuisine Type</label>
+            <label for="collapsible-cuisine" class="lbl-toggle-cuisine  overpass">Cuisine Type</label>
             <div class="collapsible-content-cuisine cuisine">
                 <div class="content-inner">
                     {% for field in form if field.widget.input_type != 'hidden' and field.group == 'cuisine' %}
                         <div class="diet-restrict-item">
                             {{field}}
-                            {{field.label}}
+                            {{field.label(class_=("overpass"))}}
                         </div>
                     {% endfor %}
                 </div>
@@ -36,13 +36,13 @@
         </div>
         <div class="wrap-collapsible">
             <input type="checkbox" class="toggle-allergies checkbox-collapse" id="collapsible-allergies">
-            <label for="collapsible-allergies" class="lbl-toggle-allergies">Allergies</label>
+            <label for="collapsible-allergies" class="lbl-toggle-allergies  overpass">Allergies</label>
             <div class="collapsible-content-allergies allergy">
                 <div class="content-inner">
                     {% for field in form if field.widget.input_type != 'hidden' and field.group == 'allergy' %}
                         <div class="diet-restrict-item">
                             {{field}}
-                            {{field.label}}
+                            {{field.label(class_=("overpass"))}}
                         </div>
                     {% endfor %}
                 </div>
@@ -50,13 +50,13 @@
         </div>
         <div class="wrap-collapsible">
             <input type="checkbox" class="toggle-meal-type checkbox-collapse" id="collapsible-meal-type">
-            <label for="collapsible-meal-type" class="lbl-toggle-meal-type">Meal Type</label>
+            <label for="collapsible-meal-type" class="lbl-toggle-meal-type overpass">Meal Type</label>
             <div class="collapsible-content-meal-type meal-type">
                 <div class="content-inner">
                     {% for field in form if field.widget.input_type != 'hidden' and field.group == 'mealType' %}
                         <div class="diet-restrict-item">
                             {{field}}
-                            {{field.label}}
+                            {{field.label(class_=("overpass"))}}
                         </div>
                     {% endfor %}
                 </div>

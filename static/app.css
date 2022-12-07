@@ -15,18 +15,21 @@ body {
 
 h2 {
     margin: 3px;
-    font-family: Overpass;
     font-weight: 900;
     font-style: oblique;
+}
+
+.corben {
+    font-family: Corben, sans-serif;
+}
+
+.overpass {
+    font-family: Overpass, sans-serif;
 }
 
 .search-home {
     text-align: center;
     margin: 20px;
-}
-
-.home-p {
-    font-family: Corben, sans-serif;
 }
 
 .container {
@@ -47,7 +50,6 @@ h2 {
     padding: 1em;
     color: var(--text-primary);
     text-decoration: none;
-    font-family: Corben, sans-serif;
     font-size: 120%;
 }
 
@@ -95,7 +97,7 @@ h2 {
 }
 
 .search-parent {
-    width: 100%;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -133,12 +135,17 @@ h2 {
 
 .wrap-collapsible {
     margin: 3px;
-    width: 50%;
+    width: 100%;
+    max-width: 700px;
+    min-width: 400px;
 }
 
 .wrap-collapsible-search {
     margin: 3px;
     width: 100%;
+    max-width: 700px;
+    min-width: 400px;
+    background: var(--bg-sec-inner);
 }
 
 .checkbox-collapse {
@@ -227,7 +234,7 @@ h2 {
     padding: .5rem;
 
     color: black;
-    background: white;
+    background: var(--bg-secondary);
 
     cursor: pointer;
 
@@ -363,8 +370,8 @@ h2 {
 }
 
 .collapsible-content-search .content-inner {
-    background: white;
-    border-bottom: 1px solid white;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--bg-secondary);
 
     border-bottom-left-radius: 7px;
     border-bottom-right-radius: 7px;
