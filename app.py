@@ -113,7 +113,7 @@ def signup():
             )
             db.session.commit()
         except IntegrityError:
-            flash("Username already taken", "danger")
+            flash("Username or email already taken", "danger")
             return render_template('signup.html', form=form)
 
         do_login(user)
@@ -163,6 +163,7 @@ def search():
         results_to=results_to,
         count=count,
         form=form,
+        logged_in=bool(g.user)
         )
 
 @app.route("/recipes/<string:edamam_id>")
@@ -202,7 +203,10 @@ def user_profile():
     for fav in recipes:
         fav.favorite = True
     
-    return render_template("user_favorites.html", user=user, recipes=recipes)
+    return render_template("user_favorites.html",
+        user=user,
+        recipes=recipes,
+        logged_in=bool(g.user))
     
 
 ### ---Favoriting API route(s)--- ###

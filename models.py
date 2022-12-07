@@ -58,7 +58,8 @@ class User(db.Model):
     )
 
     email = db.Column(
-        db.Text
+        db.Text,
+        unique=True
     )
 
     favorites = db.relationship(

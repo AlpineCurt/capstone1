@@ -68,7 +68,7 @@ class SearchForm(FlaskForm):
 class PasswordResetForm(FlaskForm):
     """Form for submitting email for recovering password"""
 
-    email = StringField("Email", validators=[InputRequired()])
+    email = EmailField("Email", validators=[InputRequired()])
 
 class NewPasswordForm(FlaskForm):
     """Form for submitting a new password"""

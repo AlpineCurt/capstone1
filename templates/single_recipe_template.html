@@ -1,15 +1,24 @@
 <div class="single-recipe">
-    <div class="recipe-name">
+    <div class="recipe-name overpass">
         <a class="recipe-name-link" href="/recipes/{{recipe.edamam_id}}">{{recipe.name}}</a>
     </div>
-    <div class="recipe-pic">
+    <div class="recipe-pic-container">
         <a href="/recipes/{{recipe.edamam_id}}">
             <img src="{{recipe.image}}" alt="">
         </a>
-        {% if recipe.favorite %}
-            <img class="fav-star fav-recipe" src="/static/filled_carrot.png" alt="" data-edamam-id="{{recipe.edamam_id}}" data-recipe-name="{{recipe.name}}" data-recipe-image="{{recipe.image}}">
-        {% else %}
-            <img class="fav-star" src="/static/empty_carrot.png" alt="" data-edamam-id="{{recipe.edamam_id}}" data-recipe-name="{{recipe.name}}" data-recipe-image="{{recipe.image}}">
-        {%  endif %}
+        <div class="fav-star-container">
+            {% if recipe.favorite %}
+                <img class="fav-star fav-recipe" src="/static/filled_carrot.png" alt="" data-edamam-id="{{recipe.edamam_id}}" data-recipe-name="{{recipe.name}}" data-recipe-image="{{recipe.image}}">
+            {% else %}
+                <img class="fav-star" src="/static/empty_carrot.png" alt="" data-edamam-id="{{recipe.edamam_id}}" data-recipe-name="{{recipe.name}}" data-recipe-image="{{recipe.image}}">
+            {%  endif %}
+            <span class="tooltip-text">
+                {% if logged_in %}
+                    Add to Favorites
+                {% else %}
+                    Login to Add to Favorites
+                {% endif %}
+            </span>
+        </div>
     </div>
 </div>
