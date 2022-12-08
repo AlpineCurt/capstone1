@@ -28,6 +28,10 @@ h2 {
     font-family: Overpass, sans-serif;
 }
 
+.oblique {
+    font-style: oblique;
+}
+
 .search-home {
     text-align: center;
     margin: 20px;
@@ -560,28 +564,39 @@ h2 {
 
 .s-recipe-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
 }
 
 .s-recipe-ing {
-    display: block;
-    max-width: 50%;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: center;
+    width: 100%;;
+    max-width: 100%;
+    height: 250px;
+    max-height: 100%;
     margin: 10px;
+    gap: 10px;
 }
 
-.ing-list {
+/* .ing-list {
     text-align: left;
-}
+} */
 
 .ing-item {
     padding: 4px;
+    max-width: 200px;
 }
 
 .cook-inst {
     margin: 10px;
+    font-size: 20px;
 }
 
 .fav-star-container .tooltip-text {

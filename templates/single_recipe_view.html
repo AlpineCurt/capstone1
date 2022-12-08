@@ -3,9 +3,9 @@
 {% block title %}{{recipe.name}}{% endblock %}
 
 {% block content %}
-<h3 class="overpass">{{recipe.name}}</h3>
 <div class="s-recipe-container">
-    <div class="recipe-pic-container">
+    <h3 class="overpass search-home oblique">{{recipe.name}}</h3>
+    <div class="recipe-pic-container search-home">
         <img src="{{recipe.image}}" alt="">
         <div class="fav-star-container">
             {% if recipe.favorite %}
@@ -15,16 +15,14 @@
             {% endif %}
         </div>
     </div>
+    <h4 class="overpass">Ingredients</h4>
     <div class="s-recipe-ing corben">
-        <h4>Ingredients</h4>
-        <div class="ing-list">
-            {% for ing in recipe.ingredients %}
-                <div class="ing-item">{{ing}}</div>
-            {% endfor %}
-        </div>
+        {% for ing in recipe.ingredients %}
+            <div class="ing-item">{{ing}}</div>
+        {% endfor %}
     </div>
-</div>
-<div class="cook-inst">
-    <a href="{{recipe.instructions}}">For Coooking Instructions, click here!</a>
+    <div class="cook-inst">
+        <a href="{{recipe.instructions}}">For Coooking Instructions, click here!</a>
+    </div>
 </div>
 {% endblock %}
