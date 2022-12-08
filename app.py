@@ -1,20 +1,20 @@
 import os
 from secrets_ import flask_secret_key, edamam_app_id, edamam_app_key, google_app_password
 
-from flask import Flask, render_template, request, flash, redirect, session, get_flashed_messages, g, jsonify
+from flask import Flask, render_template, request, flash, redirect, session, g, jsonify
 from flask_mail import Mail, Message
-from flask_debugtoolbar import DebugToolbarExtension
+# from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 import requests
 
-from models import db, conenct_db, User, Comment, Recipe, RecipeInfo, Favorite
+from models import db, conenct_db, User, Recipe, RecipeInfo, Favorite
 from forms import NewUserForm, LoginForm, SearchForm, PasswordResetForm, NewPasswordForm
 
 from helper_functions import parse_search_results, build_search_params, valid_params, set_modify_search_form, set_favorites, get_reset_token, verify_reset_token, generate_reset_email
 
 """Test data for frontend testing"""
-from testing_data import search_results_2
-from json import loads
+# from testing_data import search_results_2
+# from json import loads
 
 CURR_USER_KEY = "curr_user"
 
@@ -36,7 +36,7 @@ app.config['MAIL_USERNAME'] = 'wildcarrot.recovery@gmail.com'
 app.config['MAIL_PASSWORD'] = google_app_password
 mail = Mail(app)
 
-toolbar = DebugToolbarExtension(app)
+#toolbar = DebugToolbarExtension(app)
 
 conenct_db(app)
 
@@ -332,27 +332,3 @@ def reset_password():
         return redirect("/recoverpassword")
 
     return render_template("/password_reset.html", form=form, username=username)
-
-
-### ---Frontend Testing route(s)--- ###
-
-@app.route("/test/searchresults")
-def test_search_results():
-    """Page using locally stored data to limit edamam API calls while
-    working on frontend."""
-    
-    search_results1 = loads(search_results_2)
-    recipes = parse_search_results(search_results1)
-    session["next_page"] = search_results1["_links"]["next"]["href"]
-    results_from = search_results1["from"]
-    results_to = search_results1["to"]
-    count = search_results1["count"]
-
-    form = SearchForm()
-
-    return render_template("search_results.html",
-        recipes=recipes,
-        results_from=results_from,
-        results_to=results_to,
-        form=form,
-        count=count)

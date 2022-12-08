@@ -5,7 +5,7 @@ from json import loads
 from forms import SearchForm
 from secrets_ import edamam_app_id, edamam_app_key
 import jwt
-from secrets_ import jwt_key
+from secrets_ import jwt_key, heroku_base_url
 from flask_mail import Message
 from flask import render_template
 
@@ -123,6 +123,6 @@ def generate_reset_email(user):
     msg.subject = "Wild Carrot Password Reset"
     msg.sender = "DO-NOT-REPLY@wildcarrot.com"
     msg.recipients = [user.email]
-    msg.html = render_template("password_reset_msg.html", token=token)  # Need to make html and include token in html?
+    msg.html = render_template("password_reset_msg.html", token=token, base_url=heroku_base_url)  # Need to make html and include token in html?
 
     return msg
