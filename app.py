@@ -20,9 +20,15 @@ CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
 
+
 app.config['SQLALCHEMY_DATABASE_URI'] = (
-    os.environ.get(('DATABASE_URL').replace("://", "ql://", 1), 'postgresql:///wildcarrot')
+    os.environ.get('DATABASE_URL', 'postgresql:///wildcarrot')
 )
+"""Workaround for heroku postgresql"""
+uri =  app.config['SQLALCHEMY_DATABASE_URI']
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://")
+app.config['SQLALCHEMY_DATABASE_URI'] = uri
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
