@@ -12,9 +12,6 @@ from forms import NewUserForm, LoginForm, SearchForm, PasswordResetForm, NewPass
 
 from helper_functions import parse_search_results, build_search_params, valid_params, set_modify_search_form, set_favorites, get_reset_token, verify_reset_token, generate_reset_email
 
-"""Test data for frontend testing"""
-# from testing_data import search_results_2
-# from json import loads
 
 CURR_USER_KEY = "curr_user"
 
@@ -153,13 +150,17 @@ def search():
 
     try:
         session["next_page"] = resp_json["_links"]["next"]["href"]
+        next_page = True
+    except KeyError:
+        next_page = False
+    try:
         results_from = resp_json["from"]
         results_to = resp_json["to"]
         count = resp_json["count"]
     except KeyError:
-        results_from = None
-        results_to = None
-        count = None
+        results_from = 0
+        results_to = 0
+        count = 0
 
     form = set_modify_search_form(request.args.to_dict())
 
@@ -169,7 +170,8 @@ def search():
         results_to=results_to,
         count=count,
         form=form,
-        logged_in=bool(g.user)
+        logged_in=bool(g.user),
+        next_page=next_page
         )
 
 @app.route("/recipes/<string:edamam_id>")
